@@ -1,0 +1,72 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mat-card style="background-color: white; width: 100%; height: 300px; background-image: url('../../../assets/pet-7106365_1920.jpg'); background-size: cover; ">
+    <mat-card-content style="text-align: center; font-size: 40px;">
+      <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 100px; margin-top: 40px; color: white;">Nuestros Servicios</h1>      <button mat-raised-button color="warn" routerLink="/buscar" style="background-color: '#ff7f50'; color: white; font-size: large; width: 150px;">Buscar</button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card style=" display: flex; justify-content: center; align-items: center; font-size: large; font-weight: bold; width: 100%; height: 200px;">
+    <div style="text-align: center; padding: 20px;">
+      ¿Buscas un cuidador para tu perro cuando te marchas de vacaciones o ayuda para cuidar de él algunas veces en semana? En Dog Walk App te ayudamos a encontrar y reservar un cuidador cerca de ti.
+    </div>
+  </mat-card>
+</div>
+
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile [ngStyle]="{'background-color': '#ff7f50'}">
+    <div style="color: white; padding: 40px;">
+      <h2>Alojamiento</h2>
+      <p>
+        Cuidado durante las vacaciones o el fin de semana, donde tu perro es atendido en una casa particular por el cuidador que elijas. Nuestros cuidadores de perros se aseguran de que tu perro esté cómodo y reciba paseos, juegos y cuidados. Debes traer la comida para tu perro tú mismo/a durante su estancia. Precio por 24 horas de cuidado desde €10 por día.
+      </p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/corgi-4415649_640.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/beagle-5375286_640.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+    <div style="color: black; padding: 20px;">
+      <h2>Guardería de día</h2>
+      <p>
+        El servicio de guardería es durante el día, generalmente desde la mañana entre las 8 y las 9, hasta la tarde entre las 15 y las 17, pero también puede ser más corto o en otro horario. El cuidador se asegurará de que el perro esté cómodo y reciba paseos, juegos y cuidado. Debes traer comida para tu perro si necesita ser alimentado mientras se le ofrece el cuidado. Precio de la guardería desde 10€ por día.
+      </p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-color': '#ff7f50'}">
+    <div style="color: white; padding: 40px;">
+      <h2>Paseo de perros</h2>
+      <p>
+        ¿No puedes pasear a tu perro tan a menudo como te gustaría? ¡Encuentra un paseador de perros que lo saque a pasear tanto y tan lejos como sea necesario! Ofrecemos paseos de 30 a 60 minutos para tu perro, que incluyen cobertura veterinaria, así como servicio de recogida y entrega en tu hogar.      </p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/golden-retriever-4135265_1280.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+</mat-grid-list>
+
+<div fxLayout="column" fxLayoutAlign="start center">
+  <mat-card style="width: 100%; height: 100%; background-color: #43bccd; color: white;">
+    <mat-card-content style="text-align: left;">
+      <h1 style="font-weight: bold;">Beneficios de Dog Walk App</h1>
+      <mat-list>
+        <div *ngFor="let benefit of benefits">
+          <mat-list-item class="benefit-container" style="font-size: 18px; color: white">
+            <div class="benefit-title" (click)="benefit.isOpen = !benefit.isOpen">
+              <mat-icon>{{benefit.icon}}</mat-icon>
+              <strong>{{benefit.title}}</strong>
+              <span class="expand-icon">{{benefit.isOpen ? '-' : '+'}}</span>
+            </div>
+            <div class="benefit-description" [style.display]="benefit.isOpen ? 'block' : 'none'">
+              {{benefit.description}}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+

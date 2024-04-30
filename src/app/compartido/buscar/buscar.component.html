@@ -1,0 +1,90 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<div class="example-container desplazado-derecha">
+  <mat-form-field>
+    <strong>Servicio</strong>
+    <mat-select>
+      <mat-option value="option">
+        <img src="./assets/huella (1).png" alt="Icono de paseo corto" height="24px"> Paseo Corto
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" height="24px"> Paseo Largo
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Suitcase.png" alt="Icono de guardería de día" height="24px"> Guardería de día
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Country House.png" alt="Icono de alojamiento" height="24px"> Alojamiento
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Localidad</strong>
+    <input matInput placeholder="Introduce tu código postal" >
+  <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
+    <div #mapContainer></div>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Fecha</strong>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Perros</strong>
+    <mat-select>
+      <mat-option value="option">Pequeño [0 a 7kg]</mat-option>
+      <mat-option value="option">Mediano [8 a 18kg]</mat-option>
+      <mat-option value="option">Grande [19 a 35 kg]</mat-option>
+      <mat-option value="option">Gigante [+36kg]</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card class="card-espaciada">
+    <mat-card-content class="titulo-destacado">Cuidadores de perros cerca de ti, sin jaulas.</mat-card-content>
+
+    <div class="frases-container">
+      <div class="frase">
+        <img src="../../../assets/stethoscope_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cobertura veterinaria</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/verified_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cancelación Gratuita</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/person_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cuidadores Verificados</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/sms_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Soporte y Ayuda</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/credit_score_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Pago Seguro</p>
+      </div>
+    </div>
+    <mat-card>
+      <div class="contenedor-de-tarjetas">
+        <mat-card class="card-espaciada card-con-lista">
+          <mat-list>
+            <li *ngFor="let marker of dataSource">{{marker.nombre}}</li>
+          </mat-list>
+        </mat-card>
+
+        <mat-card class="card-espaciada card-con-mapa">
+          <google-map [center]="center">
+            <map-marker *ngFor="let marker of markers" [position]="marker" (mapClick)="onMarkerClick(marker)">
+              <map-info-window>{{marker.nombre}}</map-info-window>
+            </map-marker>
+          </google-map>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-card>
+</div>
+

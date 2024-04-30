@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\compartido",
+    "\\src\\app\\compartido\\buscar",
+    "\\src\\app\\paseador",
+    "\\src\\app\\paseador\\services",
+    "\\src\\enviroments"
+  ],
+  "SelectedNode": "\\src\\app\\compartido\\buscar\\buscar.component.ts",
+  "PreviewInSolutionExplorer": false
+}

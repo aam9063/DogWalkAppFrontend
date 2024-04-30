@@ -1,0 +1,41 @@
+
+
+.layout-background {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+.layout-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(120% - 200px); /* Ajusta este valor según el ancho de tu sidenav */
+  height: 100%;
+  background-image: url('../../../assets/1.jpg'), url('../../../assets/2.jpg'), url('../../../assets/3.jpg'), url('../../../assets/4.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: carrusel 15s infinite;
+  opacity: 0.6;
+}
+
+@keyframes carrusel {
+  0% { background-image: url('../../../assets/1.jpg'); }
+  33% { background-image: url('../../../assets/2.jpg'); }
+  66% { background-image: url('../../../assets/3.jpg'); }
+  100% { background-image: url('../../../assets/4.jpg'); }
+}
+
+.layout-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}

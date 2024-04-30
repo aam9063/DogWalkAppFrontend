@@ -1,0 +1,48 @@
+.desplazado-derecha {
+  margin-left: 250px;
+}
+
+.titulo-destacado {
+  font-size: 2em; /* Ajusta este valor según tus necesidades */
+  color: #000;
+}
+
+.card-espaciada {
+  margin-left: 0px; /* Ajusta este valor según tus necesidades */
+  margin-right: 20px; /* Ajusta este valor según tus necesidades */
+}
+
+.frases-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px; /* Ajusta este valor según tus necesidades */
+}
+
+.frase {
+  text-align: center;
+}
+
+.contenedor-de-tarjetas {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Ajusta este valor para cambiar la separación entre las tarjetas */
+}
+
+.card-con-lista {
+  flex: 1;
+  max-width: calc(50% - 10px); /* Ajusta este valor para cambiar el ancho máximo de la tarjeta de la lista */
+}
+
+.card-con-mapa {
+  flex: 1;
+  max-width: calc(50% - 10px); /* Ajusta este valor para cambiar el ancho máximo de la tarjeta del mapa */
+}
+
+.card-con-mapa google-map {
+  width: 100%; /* Esto hará que el mapa tenga el mismo ancho que la tarjeta */
+  height: 100%; /* Esto hará que el mapa tenga la misma altura que la tarjeta */
+}
+
+mat-form-field:first-child {
+  margin-top: 20px; /* Ajusta este valor según la cantidad de espacio que quieras entre el toolbar y los campos */
+}

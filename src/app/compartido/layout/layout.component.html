@@ -1,0 +1,77 @@
+<mat-toolbar style="display: flex; justify-content: space-between;">
+  <div style="display: flex; align-items: center;">
+
+    <a routerLink="/layout" style="text-decoration: none; color: inherit;">
+      <img src="/assets/DogPaw.ico" alt="Huella de perro" style="width: 24px; height: 24px;">
+      <span>Dog Walk App</span>
+    </a>
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div style="margin-left: 50px;">
+      <button mat-button routerLink="/layout/dashboard">
+        <mat-icon style="color: orangered;">search</mat-icon>
+        Busca Cuidador
+      </button>
+      <button mat-button routerLink="/layout/servicio">
+        <mat-icon style="color: orangered;">category</mat-icon>
+        Servicios
+      </button>
+      <button mat-button routerLink="/layout/cuidador">
+        <mat-icon style="color: orangered;">group_add</mat-icon>
+        Conviértete en Cuidador
+      </button>
+      <button mat-button routerLink="/layout/usuarios">
+        <mat-icon style="color: orangered; font-weight: bold">reviews</mat-icon>
+        Opiniones
+      </button>
+      <button mat-button routerLink="/layout/faqs">
+        <mat-icon style="color: orangered;">help_outline</mat-icon>
+        ¿Dudas?
+      </button>
+      <button mat-button routerLink="/layout/contacto">
+        <mat-icon style="color: orangered;">phone</mat-icon>
+        Contacto
+      </button>
+    </div>
+  </div>
+
+
+
+  <div style="display: flex; align-items: center;">
+    <button *ngIf="estaLoggeado" mat-button routerLink="/layout/perfil" style="font-size: 14px; margin-right: 20px;">
+      {{email}}
+    </button>
+    <span *ngIf="!estaLoggeado">
+      <button mat-icon-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/modal-usuario">
+        <mat-icon>person_add</mat-icon>
+      </button>
+    </span>
+
+    <button mat-icon-button *ngIf="estaLoggeado" (click)="cerrarSesion();">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav" style="width: 220px" mode="side" opened="true" color="inherit">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/recurso1">Recurso 1</a>
+      <a mat-list-item routerLink="/recurso2">Recurso 2</a>
+      <a mat-list-item routerLink="/recurso3">Recurso 3</a>
+      <!-- Agrega más enlaces aquí según sea necesario -->
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="layout-background">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
