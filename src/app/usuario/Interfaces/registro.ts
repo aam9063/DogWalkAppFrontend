@@ -1,9 +1,9 @@
 export interface Registro {
-  dniUsuario: string,
-  nombre: string,
-  apellido: string,
-  direccion: string,
-  email: string,
-  password: string,
-  telefonoUsuario: string
+  DniUsuario: string,
+  Nombre: string,
+  Apellido: string,
+  Direccion: string,
+  Email: string,
+  Password: string,
+  TelefonoUsuario: string
 }

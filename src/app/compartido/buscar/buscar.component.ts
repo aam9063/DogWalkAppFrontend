@@ -7,10 +7,17 @@ import { Observable, of } from 'rxjs';
 import { PaseadorService } from 'src/app/paseador/services/paseador.service';
 import { ApiResponse } from 'src/app/interfaces/api-response';
 
+
 interface Marker {
   lat: number;
   lng: number;
   nombre?: string; // El nombre es opcional porque inicialmente no lo tenemos
+}
+
+interface Paseador{
+  nombre: string;
+  email: string;
+  telefonoPaseador: string;
 }
 
 @Component({
@@ -22,15 +29,20 @@ interface Marker {
 export class BuscarComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'lat', 'lng'];
   dataSource: Marker[] = [];
-  paseadores: any[] = [];
+  paseadores: Paseador[] = [];
   selectedMarker?: string;
   center = {lat: 0, lng: 0}; // Añadido
   markers: Marker[] = []; // Añadido
+  sliderValue = 1;
+  currentIndex = 0;
 
   constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService) { }
 
   ngOnInit() {
-    this.obtenerPaseadores();
+    this.obtenerPaseadores()
+    this.obtenerPaseador()
+
+
   }
 
   obtenerPaseadores() {
@@ -73,5 +85,31 @@ export class BuscarComponent implements OnInit {
 
   onMarkerClick(marker: any) {
     this.selectedMarker = marker.nombre;
+  }
+
+  buscarUbicaciones() {
+    this.obtenerPaseadores();
+  }
+
+  obtenerPaseador() {
+    this.paseadorService.obtenerPaseadores().subscribe(paseadores => {
+      this.paseadores = paseadores;
+    });
+  }
+
+  cambiarValor(event: any) {
+    this.sliderValue = event.value;
+  }
+
+  nextCard() {
+    if (this.currentIndex < this.paseadores.length - 1) {
+      this.currentIndex++;
+    }
+  }
+
+  previousCard() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
   }
 }

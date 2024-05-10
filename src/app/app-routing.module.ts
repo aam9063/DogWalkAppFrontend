@@ -5,6 +5,9 @@ import { LayoutComponent } from './compartido/layout/layout.component';
 import { BuscarComponent } from './compartido/buscar/buscar.component';
 import { ServicioComponent } from './compartido/servicio/servicio.component';
 import { ModalUsuarioComponent } from './usuario/modal-usuario/modal-usuario.component';
+import { ListadoUsuarioComponent } from './usuario/listado-usuario/listado-usuario.component';
+import { HorarioComponent } from './compartido/horario/horario.component';
+import { RecuperarComponent } from './usuario/recuperar/recuperar.component';
 
 const routes: Routes = [
   {
@@ -12,6 +15,7 @@ const routes: Routes = [
     component: LayoutComponent,
     pathMatch: 'full',
   },
+
   {
     path: 'login',
     component: LoginComponent,
@@ -33,6 +37,22 @@ const routes: Routes = [
     component: ModalUsuarioComponent,
     pathMatch: 'full',
   },
+  {
+    path: '',
+    component: ListadoUsuarioComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: HorarioComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'recuperar',
+    component: RecuperarComponent,
+    pathMatch: 'full',
+  },
+
   {
     path: 'layout', // layout/dashboard , layout/especialidades
     loadChildren: () =>

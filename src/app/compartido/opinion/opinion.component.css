@@ -1,0 +1,96 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: calc(25% - 2*10px); /* Ajusta el ancho de la tarjeta para que se ajuste a su contenedor */
+  color: #fff;
+  height: auto;
+  border-radius: 20px;
+  background: #ee964b;
+  position: relative;
+  padding: 1.8rem;
+  border: 2px solid #c3c6ce;
+  transition: transform 0.3s;
+  overflow: visible;
+  margin: 10px;
+}
+
+/* Resto del CSS... */
+
+.card-details {
+  flex: 0 0 calc(25% - 2%);
+  margin: 1%;
+  box-sizing: border-box;
+}
+.card-button {
+  transform: translate(-50%, 125%);
+  width: 60%;
+}
+
+.card .text-body {
+  color: #fff !important;
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
+  line-height: 1.5; /* Aumenta el espacio entre las líneas */
+  letter-spacing: 0.05em; /* Aumenta el espacio entre las letras */
+}
+
+.text-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
+  letter-spacing: 0.1em; /* Aumenta el espacio entre las letras */
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+}
+
+ /*Hover*/
+ .card:hover {
+  border-color: black;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+ }
+
+ .card:hover .card-button {
+
+  opacity: 1;
+ }
+
+ .image-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 30%; /* Hace que la imagen sea circular */
+  display: flex;
+  justify-content: center;
+  flex: 1;
+
+}
+
+.stars {
+  color: gold;
+  font-size: 1em;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.circular-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: 10px; /* Espacio en la parte superior de la imagen */
+}
+
+.info-container {
+  flex: 2;
+  padding-left: 10px;
+}

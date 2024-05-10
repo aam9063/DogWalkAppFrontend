@@ -1,0 +1,2840 @@
+Ü®DateTime◊ˇdå‡f2™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$ac76774b-a483-4b95-b1a1-cbff96e0c29bŸ$9cd066cc-fd51-4ca4-b2a6-a9bb69bf2db9ìÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$ac76774b-a483-4b95-b1a1-cbff96e0c29b©Referenceª#file:'paseador.service.ts'•Value»dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { enviroment } from 'src/enviroments/enviroment';
+import { LoginPaseador } from '../interfaces/login-paseador';
+import { SesionPaseador } from '../interfaces/sesion-paseador';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PaseadorService {
+
+  baseUrl: string = enviroment.apiUrl + 'Paseador/';
+
+  constructor(private http: HttpClient) { }
+
+  iniciarSesionPaseador(request: LoginPaseador): Observable<SesionPaseador> {
+    return this.http.post<SesionPaseador>(`${this.baseUrl}login paseadores`, request).pipe(
+      tap(response => {
+        // Almacena el token en localStorage
+        localStorage.setItem('tokenPaseador', response.tokenPaseador);
+      })
+    );
+  }
+
+  lista(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrl}paseadores/nombres`);
+  }
+
+  getNombres(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}paseadores/nombres`);
+  }
+
+  getUbicaciones(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}paseadores/ubicaciones`);
+  }
+}
+ØOriginalContent¿™Selectionsê®FilePathŸGD:\DogWalkPlus\DogWalkApp\src\app\paseador\services\paseador.service.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$ac76774b-a483-4b95-b1a1-cbff96e0c29b©ReferenceΩ#file:'buscar.component.html'•Value»ÔdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄—<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<div class="example-container desplazado-derecha">
+  <mat-form-field>
+    <strong>Servicio</strong>
+    <mat-select>
+      <mat-option value="option">
+        <img src="./assets/huella (1).png" alt="Icono de paseo corto" height="24px"> Paseo Corto
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" height="24px"> Paseo Largo
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Suitcase.png" alt="Icono de guarder√≠a de d√≠a" height="24px"> Guarder√≠a de d√≠a
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Country House.png" alt="Icono de alojamiento" height="24px"> Alojamiento
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Localidad</strong>
+    <input matInput placeholder="Introduce tu c√≥digo postal" >
+  <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
+    <div #mapContainer></div>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Fecha</strong>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Perros</strong>
+    <mat-select>
+      <mat-option value="option">Peque√±o [0 a 7kg]</mat-option>
+      <mat-option value="option">Mediano [8 a 18kg]</mat-option>
+      <mat-option value="option">Grande [19 a 35 kg]</mat-option>
+      <mat-option value="option">Gigante [+36kg]</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card class="card-espaciada">
+    <mat-card-content class="titulo-destacado">Cuidadores de perros cerca de ti, sin jaulas.</mat-card-content>
+
+    <div class="frases-container">
+      <div class="frase">
+        <img src="../../../assets/stethoscope_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cobertura veterinaria</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/verified_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cancelaci√≥n Gratuita</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/person_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cuidadores Verificados</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/sms_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Soporte y Ayuda</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/credit_score_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Pago Seguro</p>
+      </div>
+    </div>
+    <mat-card>
+      <div class="contenedor-de-tarjetas">
+        <mat-card class="card-espaciada card-con-lista">
+          <mat-list>
+            <li *ngFor="let marker of dataSource">{{marker.nombre}}</li>
+          </mat-list>
+        </mat-card>
+
+        <mat-card class="card-espaciada card-con-mapa">
+          <google-map [center]="center">
+            <map-marker *ngFor="let marker of markers" [position]="marker" (mapClick)="onMarkerClick(marker)">
+              <map-info-window>{{marker.nombre}}</map-info-window>
+            </map-marker>
+          </google-map>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-card>
+</div>
+
+ØOriginalContent¿™Selectionsê®FilePathŸID:\DogWalkPlus\DogWalkApp\src\app\compartido\buscar\buscar.component.html®Language§HTMLÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$ac76774b-a483-4b95-b1a1-cbff96e0c29b©Referenceª#file:'buscar.component.ts'•Value»
+RdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄	0import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { map, switchMap } from 'rxjs/operators';
+import { CompartidoService } from '../compartido.service';
+import { Observable, of } from 'rxjs';
+import { PaseadorService } from 'src/app/paseador/services/paseador.service';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+
+interface Marker {
+  lat: number;
+  lng: number;
+  nombre?: string; // El nombre es opcional porque inicialmente no lo tenemos
+}
+
+@Component({
+  selector: 'app-buscar',
+  templateUrl: './buscar.component.html',
+  styleUrls: ['./buscar.component.css']
+})
+
+export class BuscarComponent implements OnInit {
+  displayedColumns: string[] = ['nombre', 'lat', 'lng'];
+  dataSource: Marker[] = [];
+  paseadores: any[] = [];
+  selectedMarker?: string;
+  center = {lat: 0, lng: 0}; // A√±adido
+  markers: Marker[] = []; // A√±adido
+
+  constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService) { }
+
+  ngOnInit() {
+    this.obtenerPaseadores();
+  }
+
+  obtenerPaseadores() {
+    this.paseadorService.lista().pipe(
+      map((response: ApiResponse) => {
+        console.log('Nombres:', response);
+        return response.resultado || [];
+      }),
+      switchMap(nombres => {
+        this.paseadores = nombres;
+        return this.paseadorService.getUbicaciones().pipe(
+          map(response => {
+            console.log('Ubicaciones:', response);
+            return response || [];
+          })
+        );
+      }),
+      map(ubicaciones => {
+        return ubicaciones.map((ubicacion, index) => ({
+          lat: ubicacion.latitud,
+          lng: ubicacion.longitud,
+          nombre: this.paseadores[index]?.nombre
+        }));
+      })
+    ).subscribe({
+      next: (data) => {
+        if (data.length > 0) {
+          this.dataSource = data;
+          this.markers = data; // A√±adido
+          this.center = this.markers[0]; // A√±adido
+        } else {
+          this.compartidoService.mostrarAlerta('No se encontraron datos', 'Advertencia!');
+        }
+      },
+      error: (e) => {
+        this.compartidoService.mostrarAlerta(e.error.mensaje, 'Error!');
+      },
+    });
+  }
+
+  onMarkerClick(marker: any) {
+    this.selectedMarker = marker.nombre;
+  }
+}
+ØOriginalContent¿™Selectionsê®FilePathŸGD:\DogWalkPlus\DogWalkApp\src\app\compartido\buscar\buscar.component.ts®Language™TypeScriptëíìÅ•Value ⁄!#file:'buscar.component.ts' #file:'buscar.component.html' #file:'paseador.service.ts' necesito que en mi mat card en el html salga los nombres de los usuarios tras hacer la llamada get a la api para sacar la lista de paseadores. En la consola del navegador se me muestran pero en la web no¿®ResponseÖßContent⁄µEn tu archivo `buscar.component.html`, est√°s utilizando un bucle `*ngFor` para iterar sobre `dataSource` y mostrar los nombres de los paseadores. Sin embargo, parece que no est√°s mostrando estos nombres en ninguna parte de tu plantilla HTML.
+
+Para mostrar los nombres de los paseadores en tu `mat-card`, puedes agregar un elemento HTML para mostrar el nombre del paseador dentro de tu bucle `*ngFor`. Aqu√≠ te dejo un ejemplo de c√≥mo podr√≠as hacerlo:
+
+```HTML
+<mat-card class="card-espaciada">
+  <mat-card-content class="titulo-destacado">Cuidadores de perros cerca de ti, sin jaulas.</mat-card-content>
+  <!-- Resto del c√≥digo... -->
+  <mat-card>
+    <div class="contenedor-de-tarjetas">
+      <mat-card class="card-espaciada card-con-lista">
+        <mat-list>
+          <li *ngFor="let marker of dataSource">
+            <p>{{marker.nombre}}</p> <!-- Aqu√≠ se muestra el nombre del paseador -->
+          </li>
+        </mat-list>
+      </mat-card>
+      <!-- Resto del c√≥digo... -->
+    </div>
+  </mat-card>
+</mat-card>
+```
+
+Con este cambio, deber√≠as ver los nombres de los paseadores en tu p√°gina web, siempre y cuando `dataSource` est√© correctamente poblado con los datos de los paseadores.§Type ¶StatusØFollowUpPromptsíŸo¬øC√≥mo puedo mostrar m√°s informaci√≥n de cada paseador en la lista, como su ubicaci√≥n o servicios ofrecidos?ŸT¬øExiste alguna forma de ordenar la lista de paseadores por nombre o por otro campo?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ∑kif2”™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$e90a989b-b1b8-4ae7-9991-bf785fe2ee2eŸ$058da966-0979-4f56-b53a-4e66771ef968êëíìÅ•Value ŸBnada que no los muestra. en cambio en la consola sigue apareciendo¿®ResponseÖßContent⁄8Si los datos se muestran correctamente en la consola, pero no en la p√°gina web, podr√≠a ser un problema de sincronizaci√≥n. Angular utiliza la detecci√≥n de cambios para actualizar la vista cuando cambian los datos del modelo. Si los datos llegan despu√©s de que Angular ha realizado su √∫ltima detecci√≥n de cambios, la vista no se actualizar√° con los nuevos datos.
+
+Una posible soluci√≥n a este problema es utilizar el operador `async` de Angular. Este operador se suscribe autom√°ticamente a un `Observable` y actualiza la vista con los nuevos datos cuando estos llegan.
+
+Primero, cambia tu m√©todo `obtenerPaseadores` para que devuelva un `Observable` en lugar de suscribirse a √©l:
+
+```TypeScript
+obtenerPaseadores(): Observable<Marker[]> {
+  return this.paseadorService.lista().pipe(
+    // Resto del c√≥digo...
+  );
+}
+```
+
+Luego, en tu componente, crea una nueva propiedad para almacenar este `Observable`:
+
+```TypeScript
+paseadores$: Observable<Marker[]>;
+
+ngOnInit() {
+  this.paseadores$ = this.obtenerPaseadores();
+}
+```
+
+Finalmente, en tu plantilla HTML, utiliza el operador `async` para suscribirte a este `Observable`:
+
+```HTML
+<li *ngFor="let marker of paseadores$ | async">
+  <p>{{marker.nombre}}</p>
+</li>
+```
+
+Con estos cambios, Angular deber√≠a actualizar la vista con los nuevos datos tan pronto como estos lleguen.§Type ¶StatusØFollowUpPromptsíŸE¬øC√≥mo puedo mostrar m√°s informaci√≥n de cada paseador en la lista?ŸL¬øExiste alguna forma de filtrar los paseadores que se muestran en la lista?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ™d@f2#™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$186ae21f-cdbb-4183-b156-a652ae1eee60Ÿ$0ea3107b-88d3-42f8-a2e5-090e99120cbbëÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$186ae21f-cdbb-4183-b156-a652ae1eee60©Referenceª#file:'buscar.component.ts'•Value»
+RdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄	0import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { map, switchMap } from 'rxjs/operators';
+import { CompartidoService } from '../compartido.service';
+import { Observable, of } from 'rxjs';
+import { PaseadorService } from 'src/app/paseador/services/paseador.service';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+
+interface Marker {
+  lat: number;
+  lng: number;
+  nombre?: string; // El nombre es opcional porque inicialmente no lo tenemos
+}
+
+@Component({
+  selector: 'app-buscar',
+  templateUrl: './buscar.component.html',
+  styleUrls: ['./buscar.component.css']
+})
+
+export class BuscarComponent implements OnInit {
+  displayedColumns: string[] = ['nombre', 'lat', 'lng'];
+  dataSource: Marker[] = [];
+  paseadores: any[] = [];
+  selectedMarker?: string;
+  center = {lat: 0, lng: 0}; // A√±adido
+  markers: Marker[] = []; // A√±adido
+
+  constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService) { }
+
+  ngOnInit() {
+    this.obtenerPaseadores();
+  }
+
+  obtenerPaseadores() {
+    this.paseadorService.lista().pipe(
+      map((response: ApiResponse) => {
+        console.log('Nombres:', response);
+        return response.resultado || [];
+      }),
+      switchMap(nombres => {
+        this.paseadores = nombres;
+        return this.paseadorService.getUbicaciones().pipe(
+          map(response => {
+            console.log('Ubicaciones:', response);
+            return response || [];
+          })
+        );
+      }),
+      map(ubicaciones => {
+        return ubicaciones.map((ubicacion, index) => ({
+          lat: ubicacion.latitud,
+          lng: ubicacion.longitud,
+          nombre: this.paseadores[index]?.nombre
+        }));
+      })
+    ).subscribe({
+      next: (data) => {
+        if (data.length > 0) {
+          this.dataSource = data;
+          this.markers = data; // A√±adido
+          this.center = this.markers[0]; // A√±adido
+        } else {
+          this.compartidoService.mostrarAlerta('No se encontraron datos', 'Advertencia!');
+        }
+      },
+      error: (e) => {
+        this.compartidoService.mostrarAlerta(e.error.mensaje, 'Error!');
+      },
+    });
+  }
+
+  onMarkerClick(marker: any) {
+    this.selectedMarker = marker.nombre;
+  }
+}
+ØOriginalContent¿™Selectionsê®FilePathŸGD:\DogWalkPlus\DogWalkApp\src\app\compartido\buscar\buscar.component.ts®Language™TypeScriptëíìÅ•Value Ÿ@#file:'buscar.component.ts' dame el codigo con lasmodificaciones¿®ResponseÖßContent⁄	)Claro, aqu√≠ est√° el c√≥digo modificado de `buscar.component.ts`:
+
+```TypeScript
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { map, switchMap } from 'rxjs/operators';
+import { CompartidoService } from '../compartido.service';
+import { Observable, of } from 'rxjs';
+import { PaseadorService } from 'src/app/paseador/services/paseador.service';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+
+interface Marker {
+  lat: number;
+  lng: number;
+  nombre?: string; // El nombre es opcional porque inicialmente no lo tenemos
+}
+
+@Component({
+  selector: 'app-buscar',
+  templateUrl: './buscar.component.html',
+  styleUrls: ['./buscar.component.css']
+})
+
+export class BuscarComponent implements OnInit {
+  displayedColumns: string[] = ['nombre', 'lat', 'lng'];
+  dataSource$: Observable<Marker[]>; // Cambiado a Observable
+  paseadores: any[] = [];
+  selectedMarker?: string;
+  center = {lat: 0, lng: 0}; // A√±adido
+  markers: Marker[] = []; // A√±adido
+
+  constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService) { }
+
+  ngOnInit() {
+    this.dataSource$ = this.obtenerPaseadores(); // Asignamos el Observable a dataSource$
+  }
+
+  obtenerPaseadores(): Observable<Marker[]> { // Cambiado para que devuelva un Observable
+    return this.paseadorService.lista().pipe(
+      map((response: ApiResponse) => {
+        console.log('Nombres:', response);
+        return response.resultado || [];
+      }),
+      switchMap(nombres => {
+        this.paseadores = nombres;
+        return this.paseadorService.getUbicaciones().pipe(
+          map(response => {
+            console.log('Ubicaciones:', response);
+            return response || [];
+          })
+        );
+      }),
+      map(ubicaciones => {
+        return ubicaciones.map((ubicacion, index) => ({
+          lat: ubicacion.latitud,
+          lng: ubicacion.longitud,
+          nombre: this.paseadores[index]?.nombre
+        }));
+      })
+    );
+  }
+
+  onMarkerClick(marker: any) {
+    this.selectedMarker = marker.nombre;
+  }
+}
+```
+
+Por favor, ten en cuenta que tambi√©n necesitar√°s modificar tu plantilla HTML para utilizar el operador `async` con `dataSource$`, como se mencion√≥ en la respuesta anterior.§Type ¶StatusØFollowUpPromptsíŸW¬øC√≥mo modifico mi plantilla HTML para utilizar el operador `async` con `dataSource$`?Ÿk¬øNecesito hacer alg√∫n otro cambio en mi c√≥digo para que funcione correctamente con estas modificaciones?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇÈ/ó‡f3{d™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$85f4f025-3397-4251-8ec9-872de4272d2cŸ$39459208-3312-4122-920b-080cc475ccf4íÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$85f4f025-3397-4251-8ec9-872de4272d2c©ReferenceΩ#file:'buscar.component.html'•Value»CdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄%<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<div class="example-container desplazado-derecha">
+  <mat-form-field>
+    <strong>Servicio</strong>
+    <mat-select>
+      <mat-option value="option">
+        <img src="./assets/huella (1).png" alt="Icono de paseo corto" height="24px"> Paseo Corto
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" height="24px"> Paseo Largo
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Suitcase.png" alt="Icono de guarder√≠a de d√≠a" height="24px"> Guarder√≠a de d√≠a
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Country House.png" alt="Icono de alojamiento" height="24px"> Alojamiento
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Localidad</strong>
+    <input matInput placeholder="Introduce tu c√≥digo postal" >
+  <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
+    <div #mapContainer></div>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Fecha</strong>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Perros</strong>
+    <mat-select>
+      <mat-option value="option">Peque√±o [0 a 7kg]</mat-option>
+      <mat-option value="option">Mediano [8 a 18kg]</mat-option>
+      <mat-option value="option">Grande [19 a 35 kg]</mat-option>
+      <mat-option value="option">Gigante [+36kg]</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card class="card-espaciada">
+    <mat-card-content class="titulo-destacado">Cuidadores de perros cerca de ti, sin jaulas.</mat-card-content>
+
+    <div class="frases-container">
+      <div class="frase">
+        <img src="../../../assets/stethoscope_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cobertura veterinaria</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/verified_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cancelaci√≥n Gratuita</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/person_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cuidadores Verificados</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/sms_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Soporte y Ayuda</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/credit_score_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Pago Seguro</p>
+      </div>
+    </div>
+    <mat-card>
+      <div class="contenedor-de-tarjetas">
+        <mat-card class="card-espaciada card-con-lista">
+          <mat-list>
+            <li *ngFor="let marker of dataSource">
+              <p>{{marker.nombre}}</p> <!-- Aqu√≠ se muestra el nombre del paseador -->
+            </li>
+          </mat-list>
+        </mat-card>
+
+        <mat-card class="card-espaciada card-con-mapa">
+          <google-map [center]="center">
+            <map-marker *ngFor="let marker of markers" [position]="marker" (mapClick)="onMarkerClick(marker)">
+              <map-info-window>{{marker.nombre}}</map-info-window>
+            </map-marker>
+          </google-map>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-card>
+</div>
+
+ØOriginalContent¿™Selectionsê®FilePathŸID:\DogWalkPlus\DogWalkApp\src\app\compartido\buscar\buscar.component.html®Language§HTMLÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$85f4f025-3397-4251-8ec9-872de4272d2c©Reference¿•Value»[dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄%<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<div class="example-container desplazado-derecha">
+  <mat-form-field>
+    <strong>Servicio</strong>
+    <mat-select>
+      <mat-option value="option">
+        <img src="./assets/huella (1).png" alt="Icono de paseo corto" height="24px"> Paseo Corto
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" height="24px"> Paseo Largo
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Suitcase.png" alt="Icono de guarder√≠a de d√≠a" height="24px"> Guarder√≠a de d√≠a
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Country House.png" alt="Icono de alojamiento" height="24px"> Alojamiento
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Localidad</strong>
+    <input matInput placeholder="Introduce tu c√≥digo postal" >
+  <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
+    <div #mapContainer></div>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Fecha</strong>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Perros</strong>
+    <mat-select>
+      <mat-option value="option">Peque√±o [0 a 7kg]</mat-option>
+      <mat-option value="option">Mediano [8 a 18kg]</mat-option>
+      <mat-option value="option">Grande [19 a 35 kg]</mat-option>
+      <mat-option value="option">Gigante [+36kg]</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card class="card-espaciada">
+    <mat-card-content class="titulo-destacado">Cuidadores de perros cerca de ti, sin jaulas.</mat-card-content>
+
+    <div class="frases-container">
+      <div class="frase">
+        <img src="../../../assets/stethoscope_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cobertura veterinaria</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/verified_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cancelaci√≥n Gratuita</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/person_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cuidadores Verificados</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/sms_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Soporte y Ayuda</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/credit_score_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Pago Seguro</p>
+      </div>
+    </div>
+    <mat-card>
+      <div class="contenedor-de-tarjetas">
+        <mat-card class="card-espaciada card-con-lista">
+          <mat-list>
+            <li *ngFor="let marker of dataSource">
+              <p>{{marker.nombre}}</p> <!-- Aqu√≠ se muestra el nombre del paseador -->
+            </li>
+          </mat-list>
+        </mat-card>
+
+        <mat-card class="card-espaciada card-con-mapa">
+          <google-map [center]="center">
+            <map-marker *ngFor="let marker of markers" [position]="marker" (mapClick)="onMarkerClick(marker)">
+              <map-info-window>{{marker.nombre}}</map-info-window>
+            </map-marker>
+          </google-map>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-card>
+</div>
+
+ØOriginalContent¿™SelectionsëÉ•Caret¿•StartÕE£EndÕä®FilePathŸID:\DogWalkPlus\DogWalkApp\src\app\compartido\buscar\buscar.component.html®Language§HTMLëíìÅ•Value ⁄##file:'buscar.component.html' quiero que al lado de esto: <mat-form-field>
+    <strong>Servicio</strong>
+    <mat-select>
+      <mat-option value="option">
+        <img src="./assets/huella (1).png" alt="Icono de paseo corto" height="24px"> Paseo Corto
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" height="24px"> Paseo Largo
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Suitcase.png" alt="Icono de guarder√≠a de d√≠a" height="24px"> Guarder√≠a de d√≠a
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Country House.png" alt="Icono de alojamiento" height="24px"> Alojamiento
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Localidad</strong>
+    <input matInput placeholder="Introduce tu c√≥digo postal" >
+  <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
+    <div #mapContainer></div>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Fecha</strong>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Perros</strong>
+    <mat-select>
+      <mat-option value="option">Peque√±o [0 a 7kg]</mat-option>
+      <mat-option value="option">Mediano [8 a 18kg]</mat-option>
+      <mat-option value="option">Grande [19 a 35 kg]</mat-option>
+      <mat-option value="option">Gigante [+36kg]</mat-option>
+    </mat-select>
+  </mat-form-field> haya un boton que se llame Buscar y muestre en el mapa las ubicaciones cercanas en el mapa de las que ya hay seleccionadas¿®ResponseÖßContent⁄>Puedes agregar un bot√≥n "Buscar" despu√©s de los campos de formulario y luego usar un m√©todo en tu componente para manejar el evento de clic del bot√≥n. Este m√©todo puede ser responsable de actualizar las ubicaciones en el mapa. Aqu√≠ est√° el c√≥digo HTML actualizado:
+
+```HTML
+<mat-form-field>
+  <strong>Servicio</strong>
+  <mat-select>
+    <!-- Opciones de servicio -->
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <strong>Localidad</strong>
+  <input matInput placeholder="Introduce tu c√≥digo postal" >
+  <div #mapContainer></div>
+</mat-form-field>
+<mat-form-field>
+  <strong>Fecha</strong>
+  <input matInput [matDatepicker]="picker">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<mat-form-field>
+  <strong>Perros</strong>
+  <mat-select>
+    <!-- Opciones de perros -->
+  </mat-select>
+</mat-form-field>
+
+<!-- Bot√≥n de b√∫squeda -->
+<button mat-raised-button color="primary" (click)="buscarUbicaciones()">Buscar</button>
+```
+
+En tu componente TypeScript, necesitar√°s definir el m√©todo `buscarUbicaciones()`. Este m√©todo deber√≠a contener la l√≥gica para actualizar las ubicaciones en el mapa bas√°ndose en las selecciones del usuario. Como no tengo acceso a tu c√≥digo TypeScript, no puedo proporcionarte un ejemplo exacto de c√≥mo deber√≠a ser este m√©todo. Sin embargo, probablemente necesitar√°s usar los valores de los campos de formulario para buscar las ubicaciones correspondientes y luego actualizar una variable en tu componente que est√© vinculada a las ubicaciones en el mapa.§Type ¶StatusØFollowUpPromptsíŸn¬øC√≥mo puedo vincular los valores de los campos de formulario a mi m√©todo buscarUbicaciones() en TypeScript?ŸN¬øC√≥mo puedo actualizar las ubicaciones en el mapa en mi aplicaci√≥n Angular?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇSµåf3{°™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$913907b1-e987-45b9-a00a-d86ad052ce49Ÿ$85df6a59-865e-4bcd-87a3-650de2e24addíÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$913907b1-e987-45b9-a00a-d86ad052ce49©Referenceª#file:'buscar.component.ts'•Value»
+RdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄	0import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { map, switchMap } from 'rxjs/operators';
+import { CompartidoService } from '../compartido.service';
+import { Observable, of } from 'rxjs';
+import { PaseadorService } from 'src/app/paseador/services/paseador.service';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+
+interface Marker {
+  lat: number;
+  lng: number;
+  nombre?: string; // El nombre es opcional porque inicialmente no lo tenemos
+}
+
+@Component({
+  selector: 'app-buscar',
+  templateUrl: './buscar.component.html',
+  styleUrls: ['./buscar.component.css']
+})
+
+export class BuscarComponent implements OnInit {
+  displayedColumns: string[] = ['nombre', 'lat', 'lng'];
+  dataSource: Marker[] = [];
+  paseadores: any[] = [];
+  selectedMarker?: string;
+  center = {lat: 0, lng: 0}; // A√±adido
+  markers: Marker[] = []; // A√±adido
+
+  constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService) { }
+
+  ngOnInit() {
+    this.obtenerPaseadores();
+  }
+
+  obtenerPaseadores() {
+    this.paseadorService.lista().pipe(
+      map((response: ApiResponse) => {
+        console.log('Nombres:', response);
+        return response.resultado || [];
+      }),
+      switchMap(nombres => {
+        this.paseadores = nombres;
+        return this.paseadorService.getUbicaciones().pipe(
+          map(response => {
+            console.log('Ubicaciones:', response);
+            return response || [];
+          })
+        );
+      }),
+      map(ubicaciones => {
+        return ubicaciones.map((ubicacion, index) => ({
+          lat: ubicacion.latitud,
+          lng: ubicacion.longitud,
+          nombre: this.paseadores[index]?.nombre
+        }));
+      })
+    ).subscribe({
+      next: (data) => {
+        if (data.length > 0) {
+          this.dataSource = data;
+          this.markers = data; // A√±adido
+          this.center = this.markers[0]; // A√±adido
+        } else {
+          this.compartidoService.mostrarAlerta('No se encontraron datos', 'Advertencia!');
+        }
+      },
+      error: (e) => {
+        this.compartidoService.mostrarAlerta(e.error.mensaje, 'Error!');
+      },
+    });
+  }
+
+  onMarkerClick(marker: any) {
+    this.selectedMarker = marker.nombre;
+  }
+}
+ØOriginalContent¿™Selectionsê®FilePathŸGD:\DogWalkPlus\DogWalkApp\src\app\compartido\buscar\buscar.component.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$913907b1-e987-45b9-a00a-d86ad052ce49©Reference¿•Value»[dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄%<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<div class="example-container desplazado-derecha">
+  <mat-form-field>
+    <strong>Servicio</strong>
+    <mat-select>
+      <mat-option value="option">
+        <img src="./assets/huella (1).png" alt="Icono de paseo corto" height="24px"> Paseo Corto
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" height="24px"> Paseo Largo
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Suitcase.png" alt="Icono de guarder√≠a de d√≠a" height="24px"> Guarder√≠a de d√≠a
+      </mat-option>
+      <mat-option value="option">
+        <img src="./assets/Country House.png" alt="Icono de alojamiento" height="24px"> Alojamiento
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Localidad</strong>
+    <input matInput placeholder="Introduce tu c√≥digo postal" >
+  <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
+    <div #mapContainer></div>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Fecha</strong>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <strong>Perros</strong>
+    <mat-select>
+      <mat-option value="option">Peque√±o [0 a 7kg]</mat-option>
+      <mat-option value="option">Mediano [8 a 18kg]</mat-option>
+      <mat-option value="option">Grande [19 a 35 kg]</mat-option>
+      <mat-option value="option">Gigante [+36kg]</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card class="card-espaciada">
+    <mat-card-content class="titulo-destacado">Cuidadores de perros cerca de ti, sin jaulas.</mat-card-content>
+
+    <div class="frases-container">
+      <div class="frase">
+        <img src="../../../assets/stethoscope_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cobertura veterinaria</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/verified_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cancelaci√≥n Gratuita</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/person_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cuidadores Verificados</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/sms_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Soporte y Ayuda</p>
+      </div>
+      <div class="frase">
+        <img src="../../../assets/credit_score_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Pago Seguro</p>
+      </div>
+    </div>
+    <mat-card>
+      <div class="contenedor-de-tarjetas">
+        <mat-card class="card-espaciada card-con-lista">
+          <mat-list>
+            <li *ngFor="let marker of dataSource">
+              <p>{{marker.nombre}}</p> <!-- Aqu√≠ se muestra el nombre del paseador -->
+            </li>
+          </mat-list>
+        </mat-card>
+
+        <mat-card class="card-espaciada card-con-mapa">
+          <google-map [center]="center">
+            <map-marker *ngFor="let marker of markers" [position]="marker" (mapClick)="onMarkerClick(marker)">
+              <map-info-window>{{marker.nombre}}</map-info-window>
+            </map-marker>
+          </google-map>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-card>
+</div>
+
+ØOriginalContent¿™SelectionsëÉ•Caret¿•StartÕE£EndÕä®FilePathŸID:\DogWalkPlus\DogWalkApp\src\app\compartido\buscar\buscar.component.html®Language§HTMLëíìÅ•Value Ÿ)#file:'buscar.component.ts' este es mi ts¿®ResponseÖßContent⁄ƒGracias por proporcionar el archivo TypeScript. Para agregar la funcionalidad de b√∫squeda, puedes agregar un nuevo m√©todo en tu componente que se llame `buscarUbicaciones()`. Este m√©todo puede llamar a `obtenerPaseadores()` para actualizar las ubicaciones en el mapa. Aqu√≠ est√° el c√≥digo TypeScript actualizado:
+
+```TypeScript
+import { Component, OnInit } from '@angular/core';
+// ...otros imports...
+
+@Component({
+  selector: 'app-buscar',
+  templateUrl: './buscar.component.html',
+  styleUrls: ['./buscar.component.css']
+})
+export class BuscarComponent implements OnInit {
+  // ...otras propiedades...
+
+  constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService) { }
+
+  ngOnInit() {
+    this.obtenerPaseadores();
+  }
+
+  // ...otros m√©todos...
+
+  buscarUbicaciones() {
+    this.obtenerPaseadores();
+  }
+}
+```
+
+Y en tu archivo HTML, puedes agregar el bot√≥n "Buscar" que llama a este m√©todo cuando se hace clic en √©l:
+
+```HTML
+<!-- ...otros campos de formulario... -->
+
+<button mat-raised-button color="primary" (click)="buscarUbicaciones()">Buscar</button>
+```
+
+Por favor, ten en cuenta que este c√≥digo simplemente recarga todas las ubicaciones cuando se hace clic en el bot√≥n "Buscar". Si quieres filtrar las ubicaciones bas√°ndote en las selecciones del usuario, necesitar√°s modificar el m√©todo `obtenerPaseadores()` para aceptar par√°metros y usar esos par√°metros para filtrar los resultados.§Type ¶StatusØFollowUpPromptsíŸP¬øC√≥mo puedo filtrar las ubicaciones bas√°ndome en las selecciones del usuario?ŸJ¬øC√≥mo puedo mostrar un mensaje de error si no se encuentran ubicaciones?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇœ4 f3|£™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$f3e3d0a9-bf9f-4cb3-91be-6ce03b25ff8dŸ$38efdacb-a4e2-451e-be37-f5f291f934b7êëíìÅ•Value Ÿ£pero lo que quiero es que el boton, con la informacion que se rellena en el mat form field lo usea para ubicarse en esa zona y mostrar las ubicaciones m√°s cercans¿®ResponseÖßContent⁄äEntiendo, necesitas que el bot√≥n "Buscar" tome la informaci√≥n de los campos del formulario y luego busque las ubicaciones m√°s cercanas bas√°ndose en esa informaci√≥n. Para hacer esto, necesitar√°s recoger los valores de los campos del formulario y pasarlos a tu m√©todo `buscarUbicaciones()`. 
+
+Primero, necesitar√°s agregar una referencia de plantilla a cada campo de formulario en tu archivo HTML. Aqu√≠ hay un ejemplo de c√≥mo hacerlo para el campo "Localidad":
+
+```HTML
+<mat-form-field>
+  <strong>Localidad</strong>
+  <input matInput placeholder="Introduce tu c√≥digo postal" #localidadInput>
+  <div #mapContainer></div>
+</mat-form-field>
+```
+
+Luego, puedes pasar el valor de este campo a tu m√©todo `buscarUbicaciones()` cuando se haga clic en el bot√≥n "Buscar":
+
+```HTML
+<button mat-raised-button color="primary" (click)="buscarUbicaciones(localidadInput.value)">Buscar</button>
+```
+
+Finalmente, necesitar√°s modificar tu m√©todo `buscarUbicaciones()` para aceptar un par√°metro y usar ese par√°metro para filtrar las ubicaciones. Aqu√≠ hay un ejemplo de c√≥mo podr√≠as hacerlo:
+
+```TypeScript
+buscarUbicaciones(localidad: string) {
+  // Aqu√≠ puedes usar 'localidad' para filtrar las ubicaciones
+  // Por ejemplo, podr√≠as hacer una solicitud HTTP a tu servidor para obtener las ubicaciones m√°s cercanas a 'localidad'
+  // Luego, puedes actualizar 'this.markers' con las nuevas ubicaciones para actualizar el mapa
+}
+```
+
+Por favor, ten en cuenta que este es solo un ejemplo y necesitar√°s adaptarlo a tu caso de uso espec√≠fico. En particular, necesitar√°s decidir c√≥mo quieres filtrar las ubicaciones bas√°ndote en la 'localidad' y otros campos del formulario.§Type ¶StatusØFollowUpPromptsíŸU¬øC√≥mo puedo filtrar las ubicaciones bas√°ndome en m√∫ltiples campos del formulario?ŸS¬øC√≥mo puedo mostrar un mensaje de error si no se encuentran ubicaciones cercanas?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ¢®¥Pf3|“™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$36fd58cc-765f-4348-8d7c-2c4b130e4c39Ÿ$41418fa5-b76a-4e30-8999-8a3ce007ad8dêëíìÅ•Value ⁄Zdesarrollame esto: buscarUbicaciones(localidad: string) {
+  // Aqu√≠ puedes usar 'localidad' para filtrar las ubicaciones
+  // Por ejemplo, podr√≠as hacer una solicitud HTTP a tu servidor para obtener las ubicaciones m√°s cercanas a 'localidad'
+  // Luego, puedes actualizar 'this.markers' con las nuevas ubicaciones para actualizar el mapa
+}¿®ResponseÖßContent⁄|Para desarrollar el m√©todo `buscarUbicaciones(localidad: string)`, necesitar√°s una API o un servicio que pueda filtrar las ubicaciones bas√°ndose en la localidad. Como no tengo detalles sobre tal servicio, proporcionar√© un ejemplo gen√©rico utilizando un servicio ficticio llamado `ubicacionService` que tiene un m√©todo `getUbicacionesCercanas(localidad: string)`.
+
+Primero, necesitar√°s inyectar `ubicacionService` en tu componente:
+
+```TypeScript
+constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService, private ubicacionService: UbicacionService) { }
+```
+
+Luego, puedes desarrollar el m√©todo `buscarUbicaciones(localidad: string)` de la siguiente manera:
+
+```TypeScript
+buscarUbicaciones(localidad: string) {
+  this.ubicacionService.getUbicacionesCercanas(localidad).subscribe({
+    next: (data) => {
+      if (data.length > 0) {
+        this.markers = data.map(ubicacion => ({
+          lat: ubicacion.latitud,
+          lng: ubicacion.longitud,
+          nombre: ubicacion.nombre
+        }));
+        this.center = this.markers[0];
+      } else {
+        this.compartidoService.mostrarAlerta('No se encontraron datos', 'Advertencia!');
+      }
+    },
+    error: (e) => {
+      this.compartidoService.mostrarAlerta(e.error.mensaje, 'Error!');
+    },
+  });
+}
+```
+
+Por favor, ten en cuenta que este es solo un ejemplo y necesitar√°s adaptarlo a tu caso de uso espec√≠fico. En particular, necesitar√°s reemplazar `ubicacionService` y `getUbicacionesCercanas(localidad: string)` con tu propio servicio y m√©todo que puedan obtener las ubicaciones m√°s cercanas bas√°ndose en la localidad.§Type ¶StatusØFollowUpPromptsíŸO¬øC√≥mo puedo filtrar las ubicaciones por otros campos adem√°s de la localidad?Ÿ]¬øC√≥mo puedo mostrar un mensaje de error personalizado si la b√∫squeda de ubicaciones falla?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇEê@f3|Ú™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$2097dea2-7f74-46ad-811a-805cc4c38c50Ÿ$dcc71b6a-d199-4c3b-b3fa-9dfb722921b5êëíìÅ•Value ∫no tengo ubicacion service¿®ResponseÖßContent⁄Entiendo, si no tienes un servicio espec√≠fico para buscar ubicaciones, puedes modificar el m√©todo `obtenerPaseadores()` para aceptar un par√°metro de localidad y usarlo para filtrar los resultados. 
+
+Primero, necesitar√°s modificar el m√©todo `obtenerPaseadores()` para que acepte un par√°metro de localidad:
+
+```TypeScript
+obtenerPaseadores(localidad: string) {
+  // Aqu√≠ puedes usar 'localidad' para filtrar las ubicaciones
+  // Por ejemplo, podr√≠as hacer una solicitud HTTP a tu servidor para obtener las ubicaciones m√°s cercanas a 'localidad'
+  // Luego, puedes actualizar 'this.markers' con las nuevas ubicaciones para actualizar el mapa
+}
+```
+
+Luego, puedes llamar a este m√©todo desde `buscarUbicaciones()`:
+
+```TypeScript
+buscarUbicaciones(localidad: string) {
+  this.obtenerPaseadores(localidad);
+}
+```
+
+Por favor, ten en cuenta que este es solo un ejemplo y necesitar√°s adaptarlo a tu caso de uso espec√≠fico. En particular, necesitar√°s decidir c√≥mo quieres filtrar las ubicaciones bas√°ndote en la 'localidad'.§Type ¶StatusØFollowUpPromptsíŸh¬øC√≥mo puedo filtrar las ubicaciones bas√°ndome en otros campos del formulario adem√°s de la localidad?ŸX¬øC√≥mo puedo mostrar un mensaje de error si no se encuentra ninguna ubicaci√≥n cercana?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇëo@f<óÔ™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$f70ca30d-71ec-4292-8c04-d3b15a51cdd3Ÿ$c18e67fa-2561-42a3-9d53-26d57542c336íÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$f70ca30d-71ec-4292-8c04-d3b15a51cdd3©ReferenceŸ"#file:'modal-usuario.component.ts'•Value»
+GdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄	import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
+import { CompartidoService } from 'src/app/compartido/compartido.service';
+import { SesionUsuario } from '../Interfaces/sesion';
+import { Registro } from '../Interfaces/registro';
+import { Usuario } from '../Interfaces/usuario';
+import { finalize } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-modal-usuario',
+  templateUrl: './modal-usuario.component.html',
+  styleUrls: ['./modal-usuario.component.css']
+})
+export class ModalUsuarioComponent {
+  formRegistro: FormGroup;
+  ocultarPassword: boolean = true;
+  motrarLoading: boolean = false;
+
+  constructor(
+
+              private fb: FormBuilder,
+              private router: Router,
+              private usuarioServicio: UsuarioService,
+              private compartidoServicio: CompartidoService){
+
+    this.formRegistro = this.fb.group({
+      dniUsuario: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      direccion: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      telefonoUsuario: ['', Validators.required]
+    })
+
+  }
+
+  registrarUsuario() {
+    if (this.formRegistro.valid) {
+      this.motrarLoading = true;
+      console.log(this.formRegistro.value);
+      this.usuarioServicio.registrar(this.formRegistro.value).pipe(
+        finalize(() => this.motrarLoading = false)
+      ).subscribe({
+        next: (response: SesionUsuario) => {
+          console.log('Usuario registrado con √©xito', response);
+          this.compartidoServicio.mostrarAlerta('Usuario registrado con √©xito', 'succes');
+          this.router.navigate(['/layout/listado-usuario']);
+        },
+        error: error => {
+          console.error('Hubo un error al registrar el usuario', error);
+          this.compartidoServicio.mostrarAlerta('Hubo un error al registrar el usuario', 'error');
+        }
+      });
+    } else {
+      console.log('Formulario no v√°lido');
+      this.compartidoServicio.mostrarAlerta('Formulario no v√°lido', 'error');
+      console.log('Datos del formulario:', this.formRegistro.value);
+    }
+  }
+
+}
+ØOriginalContent¿™Selectionsê®FilePathŸRD:\DogWalkPlus\DogWalkApp\src\app\usuario\modal-usuario\modal-usuario.component.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$f70ca30d-71ec-4292-8c04-d3b15a51cdd3©Reference¿•Value»ÉdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContentŸ^export const enviroment = {
+  production: false,
+  apiUrl: 'http://localhost:5047/api/'
+}
+ØOriginalContent¿™SelectionsëÉ•Caret¿•Start £End^®FilePathŸ7D:\DogWalkPlus\DogWalkApp\src\enviroments\enviroment.ts®Language™TypeScriptëíìÅ•Value ⁄ÿ#file:'modal-usuario.component.ts' este metodo siempre me salta el error cuando intento registrar a un usuario:  registrarUsuario() {
+    if (this.formRegistro.valid) {
+      this.motrarLoading = true;
+      console.log(this.formRegistro.value);
+      this.usuarioServicio.registrar(this.formRegistro.value).pipe(
+        finalize(() => this.motrarLoading = false)
+      ).subscribe({
+        next: (response: SesionUsuario) => {
+          console.log('Usuario registrado con √©xito', response);
+          this.compartidoServicio.mostrarAlerta('Usuario registrado con √©xito', 'succes');
+          this.router.navigate(['/layout/listado-usuario']);
+        },
+        error: error => {
+          console.error('Hubo un error al registrar el usuario', error);
+          this.compartidoServicio.mostrarAlerta('Hubo un error al registrar el usuario', 'error');
+        }
+      });
+    } else {
+      console.log('Formulario no v√°lido');
+      this.compartidoServicio.mostrarAlerta('Formulario no v√°lido', 'error');
+      console.log('Datos del formulario:', this.formRegistro.value);
+    }
+  } y no se por que. Este es el metodo registrar que lo ytengo en usuario.service: registrar(request: Registro): Observable<SesionUsuario> {
+    console.log(request);
+    return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request);
+  }. Esta es baseUrl;  y aqui tienes apiUrl: export const enviroment = {
+  production: false,
+  apiUrl: 'http://localhost:5047/api/'
+}¿®ResponseÖßContent⁄El error que est√°s experimentando puede ser causado por varias razones. Aqu√≠ hay algunas cosas que puedes verificar:
+
+1. **Verifica la URL de la API**: Aseg√∫rate de que la URL de la API en `environment.apiUrl` es correcta y que el servidor de la API est√° en funcionamiento. Puedes probar la URL de la API directamente en tu navegador o utilizando una herramienta como Postman.
+
+2. **Verifica los datos del formulario**: Aseg√∫rate de que los datos que se env√≠an a trav√©s del formulario son correctos y cumplen con las expectativas de la API. Puedes hacer esto imprimiendo los valores del formulario en la consola antes de enviar la solicitud.
+
+3. **Verifica la respuesta de la API**: Si la URL de la API y los datos del formulario son correctos, el problema puede estar en la respuesta de la API. Puedes verificar esto imprimiendo la respuesta de la API en la consola.
+
+4. **Verifica el m√©todo de la API**: Aseg√∫rate de que est√°s utilizando el m√©todo correcto (POST) para la API. Algunas APIs pueden requerir un m√©todo diferente, como GET, PUT, etc.
+
+5. **Verifica los errores de CORS**: Si est√°s ejecutando tu aplicaci√≥n en un dominio o puerto diferente al de tu API, puedes experimentar problemas de CORS. Aseg√∫rate de que tu servidor de API est√© configurado para permitir solicitudes CORS desde el dominio o puerto donde se ejecuta tu aplicaci√≥n.
+
+Si despu√©s de verificar estos puntos el error persiste, te recomendar√≠a que compartas el mensaje de error espec√≠fico que est√°s recibiendo para poder ayudarte de manera m√°s efectiva.§Type ¶StatusØFollowUpPromptsíŸ\¬øC√≥mo puedo configurar mi servidor de API para permitir solicitudes CORS desde mi dominio?ŸS¬øC√≥mo puedo verificar si estoy utilizando el m√©todo correcto (POST) para mi API?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ~QCf<ò*™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$2148e485-95fc-44ba-92eb-3d0ca899026aŸ$65bd209f-19de-497d-b065-c5d556dd2088êëíìÅ•Value ŸUla api funciona perfectamente ya que el login me lo hace y he seguido pasos similares¿®ResponseÖßContent⁄≤Si la API funciona correctamente para otras operaciones como el inicio de sesi√≥n, entonces el problema puede estar en la operaci√≥n de registro espec√≠ficamente. Aqu√≠ hay algunas cosas adicionales que puedes verificar:
+
+1. **Verifica los datos de la solicitud de registro**: Aseg√∫rate de que los datos que se env√≠an en la solicitud de registro son correctos y cumplen con las expectativas de la API. Por ejemplo, si la API espera ciertos campos en un formato espec√≠fico (como una direcci√≥n de correo electr√≥nico v√°lida), aseg√∫rate de que los datos del formulario cumplen con estos requisitos.
+
+2. **Verifica la ruta de la API de registro**: Aseg√∫rate de que la ruta de la API que est√°s utilizando para el registro es correcta. En tu caso, est√°s utilizando `${this.baseUrl}registro` para la ruta de la API. Aseg√∫rate de que `this.baseUrl` es la URL base correcta y que `registro` es la ruta correcta para la operaci√≥n de registro.
+
+3. **Verifica los errores del servidor**: Si los datos de la solicitud y la ruta de la API son correctos, el problema puede estar en el servidor de la API. Puedes verificar esto revisando los registros del servidor de la API para ver si hay alg√∫n error cuando intentas realizar la operaci√≥n de registro.
+
+4. **Verifica la respuesta del servidor**: Si el servidor de la API no devuelve un error, pero a√∫n as√≠ no puedes realizar la operaci√≥n de registro, puede ser √∫til verificar la respuesta del servidor. Puedes hacer esto imprimiendo la respuesta del servidor en la consola.
+
+Si despu√©s de verificar estos puntos el error persiste, te recomendar√≠a que compartas el mensaje de error espec√≠fico que est√°s recibiendo para poder ayudarte de manera m√°s efectiva.§Type ¶StatusØFollowUpPromptsíŸÑ¬øHas revisado los registros del servidor de la API para ver si hay alg√∫n error cuando intentas realizar la operaci√≥n de registro?Ÿx¬øHas intentado imprimir la respuesta del servidor en la consola para verificar si hay alg√∫n problema con la respuesta?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ™VJf<òI™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$b6e0af80-965e-407b-807f-791348f85822Ÿ$97b06427-d1cb-4b5d-9e59-6beb343ff8e8êëíìÅ•Value ⁄teste es el metodo que tengo en mi backend:   [HttpPost("registro")] // POST: api/usuarios Aqui insertamos un nuevo usuario escrito en el body en formato JSON en Postman
+        public async Task<ActionResult<UsuarioDto>> Registro(RegistroDto registroDto)
+        {
+            if (await UsuarioExiste(registroDto.Email))
+            {
+                return BadRequest("El usuario ya existe");
+            }
+
+            var usuario = new Usuario
+            {
+                DniUsuario = registroDto.DniUsuario,
+                Nombre = registroDto.Nombre,
+                Apellido = registroDto.Apellido,
+                Direcci√≥n = registroDto.Direcci√≥n,
+                Email = registroDto.Email,
+                Password = registroDto.Password,
+                TelefonoUsuario = registroDto.TelefonoUsuario
+            };
+            
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+
+            return new UsuarioDto
+            {
+                Email = usuario.Email,
+                Token = _tokenServicio.CrearToken(usuario)
+            };
+        }
+      ¿®ResponseÖßContent⁄ZGracias por compartir el m√©todo de tu backend. Parece que est√°s utilizando ASP.NET Core para tu API.
+
+El m√©todo `Registro` parece correcto. Recibe un `RegistroDto` como par√°metro, verifica si el usuario ya existe, y si no, crea un nuevo usuario y lo agrega a la base de datos.
+
+Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica los datos enviados**: Aseg√∫rate de que los datos enviados desde el frontend coinciden con lo que espera el `RegistroDto`. Los nombres de los campos deben coincidir exactamente con los de `RegistroDto`.
+
+2. **Verifica el error devuelto**: Si el usuario ya existe, tu m√©todo devolver√° un `BadRequest` con el mensaje "El usuario ya existe". Aseg√∫rate de manejar este caso en tu frontend.
+
+3. **Verifica la conexi√≥n a la base de datos**: Aseg√∫rate de que tu API puede conectarse correctamente a la base de datos. Podr√≠as tener un problema si la conexi√≥n a la base de datos no funciona correctamente.
+
+4. **Verifica los errores del servidor**: Si hay un error en el servidor, como un error de sintaxis o un error en tiempo de ejecuci√≥n, esto podr√≠a causar el problema. Revisa los registros del servidor para ver si hay alg√∫n error.
+
+Si despu√©s de verificar estos puntos el error persiste, te recomendar√≠a que compartas el mensaje de error espec√≠fico que est√°s recibiendo para poder ayudarte de manera m√°s efectiva.§Type ¶StatusØFollowUpPromptsíŸI¬øHas comprobado los registros del servidor para ver si hay alg√∫n error?Ÿg¬øHas verificado que los datos enviados desde el frontend coinciden con lo que espera el `RegistroDto`?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ6†jf<òá™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$1938a56b-9fc1-4304-aa71-465123fc15c4Ÿ$77d818cb-f1d8-4b24-9439-48e87c0828efëÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$1938a56b-9fc1-4304-aa71-465123fc15c4©Reference¿•Value»dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄⁄<section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Registro</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formRegistro" (ngSubmit)="registrarUsuario()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>DNI</mat-label>
+                    <input matInput formControlName="dniUsuario" autocomplete="off" required>
+                    <mat-icon matSuffix>credit_card</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" autocomplete="off" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName="apellido" autocomplete="off" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Direcci√≥n</mat-label>
+                    <input matInput formControlName="direccion" autocomplete="off" required>
+                    <mat-icon matSuffix>home</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Tel√©fono</mat-label>
+                    <input matInput formControlName="telefonoUsuario" autocomplete="off" required>
+                    <mat-icon matSuffix>phone</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" (click)="registrarUsuario()" type="submit" [disabled]="formRegistro.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Registrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<mat-progress-bar mode="indeterminate" *ngIf="motrarLoading"></mat-progress-bar>
+ØOriginalContent¿™SelectionsëÉ•Caret¿•Start £EndÕ÷®FilePathŸTD:\DogWalkPlus\DogWalkApp\src\app\usuario\modal-usuario\modal-usuario.component.html®Language§HTMLëíìÅ•Value ⁄€este es el codigo de mi frontend que maneja el registro: import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
+import { CompartidoService } from 'src/app/compartido/compartido.service';
+import { SesionUsuario } from '../Interfaces/sesion';
+import { Registro } from '../Interfaces/registro';
+import { Usuario } from '../Interfaces/usuario';
+import { finalize } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-modal-usuario',
+  templateUrl: './modal-usuario.component.html',
+  styleUrls: ['./modal-usuario.component.css']
+})
+export class ModalUsuarioComponent {
+  formRegistro: FormGroup;
+  ocultarPassword: boolean = true;
+  motrarLoading: boolean = false;
+
+  constructor(
+
+              private fb: FormBuilder,
+              private router: Router,
+              private usuarioServicio: UsuarioService,
+              private compartidoServicio: CompartidoService){
+
+    this.formRegistro = this.fb.group({
+      dniUsuario: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      direccion: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      telefonoUsuario: ['', Validators.required]
+    })
+
+  }
+
+  registrarUsuario() {
+    if (this.formRegistro.valid) {
+      this.motrarLoading = true;
+      console.log(this.formRegistro.value);
+      this.usuarioServicio.registrar(this.formRegistro.value).pipe(
+        finalize(() => this.motrarLoading = false)
+      ).subscribe({
+        next: (response: SesionUsuario) => {
+          console.log('Usuario registrado con √©xito', response);
+          this.compartidoServicio.mostrarAlerta('Usuario registrado con √©xito', 'succes');
+          this.router.navigate(['/layout/listado-usuario']);
+        },
+        error: error => {
+          console.error('Hubo un error al registrar el usuario', error);
+          this.compartidoServicio.mostrarAlerta('Hubo un error al registrar el usuario', 'error');
+        }
+      });
+    } else {
+      console.log('Formulario no v√°lido');
+      this.compartidoServicio.mostrarAlerta('Formulario no v√°lido', 'error');
+      console.log('Datos del formulario:', this.formRegistro.value);
+    }
+  }
+
+}
+y este su html: <section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Registro</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formRegistro" (ngSubmit)="registrarUsuario()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>DNI</mat-label>
+                    <input matInput formControlName="dniUsuario" autocomplete="off" required>
+                    <mat-icon matSuffix>credit_card</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" autocomplete="off" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName="apellido" autocomplete="off" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Direcci√≥n</mat-label>
+                    <input matInput formControlName="direccion" autocomplete="off" required>
+                    <mat-icon matSuffix>home</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Tel√©fono</mat-label>
+                    <input matInput formControlName="telefonoUsuario" autocomplete="off" required>
+                    <mat-icon matSuffix>phone</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" (click)="registrarUsuario()" type="submit" [disabled]="formRegistro.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Registrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<mat-progress-bar mode="indeterminate" *ngIf="motrarLoading"></mat-progress-bar>¿®ResponseÖßContent⁄ÅGracias por compartir el c√≥digo de tu frontend. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica los nombres de los campos del formulario**: Aseg√∫rate de que los nombres de los campos del formulario coinciden exactamente con los nombres de los campos en `RegistroDto` en tu backend. Los nombres de los campos son sensibles a may√∫sculas y min√∫sculas.
+
+2. **Verifica las validaciones del formulario**: Aseg√∫rate de que las validaciones en tu formulario frontend coinciden con las validaciones en tu backend. Por ejemplo, si tu backend espera que el campo `email` sea un correo electr√≥nico v√°lido, debes agregar una validaci√≥n para esto en tu frontend.
+
+3. **Verifica el manejo de errores**: Aseg√∫rate de que est√°s manejando correctamente los errores en tu frontend. Por ejemplo, si tu backend devuelve un `BadRequest` cuando el usuario ya existe, debes manejar esto en tu frontend y mostrar un mensaje de error apropiado al usuario.
+
+4. **Verifica el m√©todo `registrarUsuario`**: Aseg√∫rate de que el m√©todo `registrarUsuario` en tu frontend est√° funcionando correctamente. Puedes hacer esto agregando m√°s declaraciones `console.log` en el m√©todo para ver qu√© est√° sucediendo cuando se llama.
+
+Si despu√©s de verificar estos puntos el error persiste, te recomendar√≠a que compartas el mensaje de error espec√≠fico que est√°s recibiendo para poder ayudarte de manera m√°s efectiva.§Type ¶StatusØFollowUpPromptsíŸG¬øC√≥mo puedo agregar m√°s validaciones a mi formulario en el frontend?Ÿh¬øC√≥mo puedo manejar correctamente los errores en mi frontend cuando el backend devuelve un BadRequest?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇÁt"‡f<òË™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$3c42dc26-8ec4-495a-aacd-03b141db16dbŸ$3eddb409-9978-4975-a19f-8608eafdf237êëíìÅ•Value ŸYlos console.log me devuelven lo que yo he ingresado aunque me da httpresponse bad reuqest¿®ResponseÖßContent⁄”Si est√°s recibiendo un error `BadRequest` (400), esto generalmente indica que el servidor no pudo entender la solicitud debido a una sintaxis inv√°lida. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica los datos enviados**: Aseg√∫rate de que los datos enviados desde el frontend coinciden con lo que espera el `RegistroDto` en tu backend. Los nombres de los campos deben coincidir exactamente con los de `RegistroDto` y deben ser del tipo correcto.
+
+2. **Verifica las validaciones del formulario**: Aseg√∫rate de que las validaciones en tu formulario frontend coinciden con las validaciones en tu backend. Por ejemplo, si tu backend espera que el campo `email` sea un correo electr√≥nico v√°lido, debes agregar una validaci√≥n para esto en tu frontend.
+
+3. **Verifica el error devuelto**: Si el backend devuelve un `BadRequest`, deber√≠a incluir un mensaje de error que indique qu√© sali√≥ mal. Este mensaje de error puede ayudarte a identificar el problema.
+
+4. **Verifica la ruta de la API**: Aseg√∫rate de que la ruta de la API que est√°s utilizando para el registro es correcta. En tu caso, est√°s utilizando `${this.baseUrl}registro` para la ruta de la API. Aseg√∫rate de que `this.baseUrl` es la URL base correcta y que `registro` es la ruta correcta para la operaci√≥n de registro.
+
+Si despu√©s de verificar estos puntos el error persiste, te recomendar√≠a que compartas el mensaje de error espec√≠fico que est√°s recibiendo para poder ayudarte de manera m√°s efectiva.§Type ¶StatusØFollowUpPromptsíŸ`¬øC√≥mo puedo verificar el mensaje de error que devuelve mi backend cuando ocurre un BadRequest?Ÿp¬øExiste alguna herramienta que pueda usar para probar las solicitudes a mi API y ver la respuesta del servidor?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ”@f<ô:™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$42f17a84-2b5a-412f-938f-b746c270dd65Ÿ$4032f595-a04d-47d8-bc49-abe246e08154ëÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$42f17a84-2b5a-412f-938f-b746c270dd65©Reference¿•Value»}dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄N<section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <a href="/layout">
+                <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              </a>
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Iniciar Sesi√≥n</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" [disabled]="formLogin.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Iniciar Sesion
+                    </button>
+                    <a href="/recuperar" class="forgot-password-link">¬øHas olvidado tu contrase√±a?</a>
+                  </div>
+                  <div class="or-container">
+                    <div class="line-separator"></div>
+                    <hr>
+                    <div class="line-separator"></div>
+                </div>
+                <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" (click)="iniciarSesion()" style="background-color: #f2f2f2; color: black; font-weight: bold;">
+                        <img src="https://img.icons8.com/color/22/000000/google-logo.png"> Iniciar Sesi√≥n con Google
+                    </button>
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+ØOriginalContent¿™SelectionsëÉ•Caret¿•Start £EndÕH®FilePathŸDD:\DogWalkPlus\DogWalkApp\src\app\usuario\login\login.component.html®Language§HTMLëíìÅ•Value ⁄ﬂpara que te hagas una idea este es mi codigo del ts en login: import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
+import { CompartidoService } from 'src/app/compartido/compartido.service';
+import { LoginUsuario } from '../Interfaces/login';
+import { PaseadorService } from 'src/app/paseador/services/paseador.service';
+import { LoginPaseador } from 'src/app/paseador/interfaces/login-paseador';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+
+  formLogin: FormGroup;
+  ocultarPassword: boolean = true;
+  mostrarLoading: boolean = false;
+
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private usuarioServicio: UsuarioService,
+              private paseadorServicio: PaseadorService,
+              private compartidoServicio: CompartidoService){
+
+    this.formLogin = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+
+  }
+
+  iniciarSesion(){
+    this.mostrarLoading = true;
+    const request: LoginUsuario = {
+      email: this.formLogin.value.email,
+      password: this.formLogin.value.password,
+    };
+    this.usuarioServicio.iniciarSesion(request).subscribe({
+      next: (response) => {
+        this.compartidoServicio.guardarSesion(response);
+        this.router.navigate(['layout']);
+
+      },
+      complete: () => {
+        this.mostrarLoading = true;
+      },
+      error: (error) => {
+        this.compartidoServicio.mostrarAlerta(error.error, 'Error');
+        this.mostrarLoading = false;
+      }
+    })
+  }; y este su html: <section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <a href="/layout">
+                <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              </a>
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Iniciar Sesi√≥n</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" [disabled]="formLogin.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Iniciar Sesion
+                    </button>
+                    <a href="/recuperar" class="forgot-password-link">¬øHas olvidado tu contrase√±a?</a>
+                  </div>
+                  <div class="or-container">
+                    <div class="line-separator"></div>
+                    <hr>
+                    <div class="line-separator"></div>
+                </div>
+                <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" (click)="iniciarSesion()" style="background-color: #f2f2f2; color: black; font-weight: bold;">
+                        <img src="https://img.icons8.com/color/22/000000/google-logo.png"> Iniciar Sesi√≥n con Google
+                    </button>
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>¿®ResponseÖßContent⁄ìGracias por compartir el c√≥digo de tu componente de inicio de sesi√≥n. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica los nombres de los campos del formulario**: Aseg√∫rate de que los nombres de los campos del formulario coinciden exactamente con los nombres de los campos en `LoginUsuario` en tu backend. Los nombres de los campos son sensibles a may√∫sculas y min√∫sculas.
+
+2. **Verifica las validaciones del formulario**: Aseg√∫rate de que las validaciones en tu formulario frontend coinciden con las validaciones en tu backend. Por ejemplo, si tu backend espera que el campo `email` sea un correo electr√≥nico v√°lido, debes agregar una validaci√≥n para esto en tu frontend.
+
+3. **Verifica el manejo de errores**: Aseg√∫rate de que est√°s manejando correctamente los errores en tu frontend. Por ejemplo, si tu backend devuelve un `BadRequest` cuando el usuario ya existe, debes manejar esto en tu frontend y mostrar un mensaje de error apropiado al usuario.
+
+4. **Verifica el m√©todo `iniciarSesion`**: Aseg√∫rate de que el m√©todo `iniciarSesion` en tu frontend est√° funcionando correctamente. Puedes hacer esto agregando m√°s declaraciones `console.log` en el m√©todo para ver qu√© est√° sucediendo cuando se llama.
+
+Si despu√©s de verificar estos puntos el error persiste, te recomendar√≠a que compartas el mensaje de error espec√≠fico que est√°s recibiendo para poder ayudarte de manera m√°s efectiva.§Type ¶StatusØFollowUpPromptsíŸT¬øC√≥mo puedo agregar validaciones adicionales a mi formulario de inicio de sesi√≥n?Ÿ<¬øC√≥mo puedo manejar otros tipos de errores en mi frontend?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ¶˜9†f<ôµ™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$6a437b3d-969d-44cd-92f2-644222773539Ÿ$d8720c49-8f03-4aa0-862f-5f4e0d14a99bóÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$6a437b3d-969d-44cd-92f2-644222773539©ReferenceŸ$#file:'modal-usuario.component.html'•Value»dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄⁄<section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Registro</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formRegistro" (ngSubmit)="registrarUsuario()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>DNI</mat-label>
+                    <input matInput formControlName="dniUsuario" autocomplete="off" required>
+                    <mat-icon matSuffix>credit_card</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" autocomplete="off" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName="apellido" autocomplete="off" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Direcci√≥n</mat-label>
+                    <input matInput formControlName="direccion" autocomplete="off" required>
+                    <mat-icon matSuffix>home</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Tel√©fono</mat-label>
+                    <input matInput formControlName="telefonoUsuario" autocomplete="off" required>
+                    <mat-icon matSuffix>phone</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" (click)="registrarUsuario()" type="submit" [disabled]="formRegistro.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Registrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<mat-progress-bar mode="indeterminate" *ngIf="motrarLoading"></mat-progress-bar>
+ØOriginalContent¿™Selectionsê®FilePathŸTD:\DogWalkPlus\DogWalkApp\src\app\usuario\modal-usuario\modal-usuario.component.html®Language§HTMLÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$6a437b3d-969d-44cd-92f2-644222773539©Reference±#file:'sesion.ts'•Value»`dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContentŸHexport interface SesionUsuario {
+  email: string,
+  token: string
+}
+ØOriginalContent¿™Selectionsê®FilePathŸ>D:\DogWalkPlus\DogWalkApp\src\app\usuario\Interfaces\sesion.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$6a437b3d-969d-44cd-92f2-644222773539©Reference≥#file:'registro.ts'•Value»—dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContentŸ∑export interface Registro {
+  DniUsuario: string,
+  Nombre: string,
+  Apellido: string,
+  Direccion: string,
+  Email: string,
+  Password: string,
+  TelefonoUsuario: string
+}
+ØOriginalContent¿™Selectionsê®FilePathŸ@D:\DogWalkPlus\DogWalkApp\src\app\usuario\Interfaces\registro.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$6a437b3d-969d-44cd-92f2-644222773539©Reference∫#file:'usuario.service.ts'•Value»YdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄9import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { enviroment } from 'src/enviroments/enviroment';
+import { LoginUsuario } from '../Interfaces/login';
+import { SesionUsuario } from '../Interfaces/sesion';
+import { Registro } from '../Interfaces/registro';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+import { Usuario } from '../Interfaces/usuario';
+import { Recuperar } from '../Interfaces/recuperar'; // Aseg√∫rate de importar el modelo Recuperar desde la ubicaci√≥n correcta
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UsuarioService {
+
+  baseUrl: string = enviroment.apiUrl + 'Usuario/';
+
+  constructor(private http: HttpClient) { }
+
+  iniciarSesion(request: LoginUsuario): Observable<SesionUsuario> {
+    return this.http.post<SesionUsuario>(`${this.baseUrl}login`, request).pipe(
+      tap(response => {
+        // Almacena el token en localStorage
+        localStorage.setItem('token', response.token);
+      })
+    );
+  }
+
+  registrar(request: Registro): Observable<SesionUsuario> {
+    console.log(request);
+    return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request);
+  }
+
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.baseUrl}usuarios`);
+  }
+
+  lista(): Observable<ApiResponse>{
+    return this.http.get<ApiResponse>(`${this.baseUrl}`);
+  }
+
+  /*
+  listadoRoles(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrl}listadoRoles`);
+  }
+  */
+
+  enviarEmail(email: string) {
+    const datos: Recuperar = {
+      email: email ?? ''
+    };
+    return this.http.post(`${this.baseUrl}recuperar-contrasenya`, datos);
+  }
+}
+ØOriginalContent¿™Selectionsê®FilePathŸED:\DogWalkPlus\DogWalkApp\src\app\usuario\services\usuario.service.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$6a437b3d-969d-44cd-92f2-644222773539©ReferenceŸ"#file:'modal-usuario.component.ts'•Value»
+GdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄	import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
+import { CompartidoService } from 'src/app/compartido/compartido.service';
+import { SesionUsuario } from '../Interfaces/sesion';
+import { Registro } from '../Interfaces/registro';
+import { Usuario } from '../Interfaces/usuario';
+import { finalize } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-modal-usuario',
+  templateUrl: './modal-usuario.component.html',
+  styleUrls: ['./modal-usuario.component.css']
+})
+export class ModalUsuarioComponent {
+  formRegistro: FormGroup;
+  ocultarPassword: boolean = true;
+  motrarLoading: boolean = false;
+
+  constructor(
+
+              private fb: FormBuilder,
+              private router: Router,
+              private usuarioServicio: UsuarioService,
+              private compartidoServicio: CompartidoService){
+
+    this.formRegistro = this.fb.group({
+      dniUsuario: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      direccion: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      telefonoUsuario: ['', Validators.required]
+    })
+
+  }
+
+  registrarUsuario() {
+    if (this.formRegistro.valid) {
+      this.motrarLoading = true;
+      console.log(this.formRegistro.value);
+      this.usuarioServicio.registrar(this.formRegistro.value).pipe(
+        finalize(() => this.motrarLoading = false)
+      ).subscribe({
+        next: (response: SesionUsuario) => {
+          console.log('Usuario registrado con √©xito', response);
+          this.compartidoServicio.mostrarAlerta('Usuario registrado con √©xito', 'succes');
+          this.router.navigate(['/layout/listado-usuario']);
+        },
+        error: error => {
+          console.error('Hubo un error al registrar el usuario', error);
+          this.compartidoServicio.mostrarAlerta('Hubo un error al registrar el usuario', 'error');
+        }
+      });
+    } else {
+      console.log('Formulario no v√°lido');
+      this.compartidoServicio.mostrarAlerta('Formulario no v√°lido', 'error');
+      console.log('Datos del formulario:', this.formRegistro.value);
+    }
+  }
+
+}
+ØOriginalContent¿™Selectionsê®FilePathŸRD:\DogWalkPlus\DogWalkApp\src\app\usuario\modal-usuario\modal-usuario.component.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$6a437b3d-969d-44cd-92f2-644222773539©Referenceµ#file:'enviroment.ts'•Value»odŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContentŸ^export const enviroment = {
+  production: false,
+  apiUrl: 'http://localhost:5047/api/'
+}
+ØOriginalContent¿™Selectionsê®FilePathŸ7D:\DogWalkPlus\DogWalkApp\src\enviroments\enviroment.ts®Language™TypeScriptÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$6a437b3d-969d-44cd-92f2-644222773539©Reference¿•Value»}dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄N<section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <a href="/layout">
+                <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              </a>
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Iniciar Sesi√≥n</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" [disabled]="formLogin.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Iniciar Sesion
+                    </button>
+                    <a href="/recuperar" class="forgot-password-link">¬øHas olvidado tu contrase√±a?</a>
+                  </div>
+                  <div class="or-container">
+                    <div class="line-separator"></div>
+                    <hr>
+                    <div class="line-separator"></div>
+                </div>
+                <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" (click)="iniciarSesion()" style="background-color: #f2f2f2; color: black; font-weight: bold;">
+                        <img src="https://img.icons8.com/color/22/000000/google-logo.png"> Iniciar Sesi√≥n con Google
+                    </button>
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+ØOriginalContent¿™SelectionsëÉ•Caret¿•Start £EndÕH®FilePathŸDD:\DogWalkPlus\DogWalkApp\src\app\usuario\login\login.component.html®Language§HTMLëíìÅ•Value Ÿ·#file:'enviroment.ts' #file:'modal-usuario.component.ts' #file:'usuario.service.ts' #file:'registro.ts' #file:'sesion.ts' #file:'modal-usuario.component.html' estos son los archivos que intervienen en el registro. Examinalos ¿®ResponseÖßContent⁄VClaro, vamos a examinar cada uno de estos archivos:
+
+1. [enviroment.ts](#enviroment.ts-context): Este archivo define la configuraci√≥n del entorno de la aplicaci√≥n, incluyendo la URL base de la API (`apiUrl`) que se utiliza para todas las solicitudes HTTP.
+
+2. [modal-usuario.component.ts](#modal-usuario.component.ts-context): Este es el componente de Angular que maneja la l√≥gica del formulario de registro. Utiliza el servicio `UsuarioService` para enviar la solicitud de registro a la API. Tambi√©n maneja la validaci√≥n del formulario y muestra mensajes de √©xito o error seg√∫n corresponda.
+
+3. [usuario.service.ts](#usuario.service.ts-context): Este servicio de Angular se encarga de las operaciones relacionadas con los usuarios, incluyendo el inicio de sesi√≥n y el registro. Utiliza el m√≥dulo `HttpClient` de Angular para enviar solicitudes HTTP a la API.
+
+4. [registro.ts](#registro.ts-context): Este archivo define la interfaz `Registro`, que representa los datos que se env√≠an a la API para registrar un nuevo usuario.
+
+5. [sesion.ts](#sesion.ts-context): Este archivo define la interfaz `SesionUsuario`, que representa los datos de la sesi√≥n del usuario que se reciben de la API despu√©s de un inicio de sesi√≥n o registro exitoso.
+
+6. [modal-usuario.component.html](#modal-usuario.component.html-context): Este es el archivo de plantilla HTML del componente de registro. Contiene el formulario de registro y utiliza la directiva `formGroup` de Angular para vincular el formulario con el grupo de formularios definido en el componente TypeScript.
+
+En resumen, el flujo de registro funciona de la siguiente manera:
+
+- El usuario llena el formulario de registro en la p√°gina y hace clic en el bot√≥n de registro.
+- El componente `ModalUsuarioComponent` valida el formulario y, si es v√°lido, llama al m√©todo `registrar` del servicio `UsuarioService`, pasando los datos del formulario.
+- El servicio `UsuarioService` env√≠a una solicitud POST a la API con los datos del formulario.
+- Si la solicitud es exitosa, la API devuelve los datos de la sesi√≥n del usuario, que se almacenan en el local storage del navegador.§Type ¶StatusØFollowUpPromptsíŸ=¬øC√≥mo se valida el formulario de registro en el componente?Ÿ9¬øQu√© sucede si la solicitud de registro a la API falla?≥CodeVulnerabilitiesëÜ¢Id ´StartOffset ©EndOffset §Type≥FallbackDisplayTypeµHardcoded Credentials∫FallbackDisplayDescriptionŸ>Embedding credentials in source code risks unauthorized access∂LoggedSkillInvocations¿Ü®DateTime◊ˇôTÏpf<ô€™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$54d35f26-c68b-4b06-b213-6794b660fd5dŸ$71d78a45-0340-4a36-8d94-8ec343b42dbbëÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$54d35f26-c68b-4b06-b213-6794b660fd5d©Reference¿•Value»}dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄N<section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <a href="/layout">
+                <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              </a>
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Iniciar Sesi√≥n</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" [disabled]="formLogin.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Iniciar Sesion
+                    </button>
+                    <a href="/recuperar" class="forgot-password-link">¬øHas olvidado tu contrase√±a?</a>
+                  </div>
+                  <div class="or-container">
+                    <div class="line-separator"></div>
+                    <hr>
+                    <div class="line-separator"></div>
+                </div>
+                <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" (click)="iniciarSesion()" style="background-color: #f2f2f2; color: black; font-weight: bold;">
+                        <img src="https://img.icons8.com/color/22/000000/google-logo.png"> Iniciar Sesi√≥n con Google
+                    </button>
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+ØOriginalContent¿™SelectionsëÉ•Caret¿•Start £EndÕH®FilePathŸDD:\DogWalkPlus\DogWalkApp\src\app\usuario\login\login.component.html®Language§HTMLëíìÅ•Value Ÿ9¬øQu√© sucede si la solicitud de registro a la API falla?¿®ResponseÖßContent⁄1Si la solicitud de registro a la API falla, el c√≥digo en el m√©todo `registrarUsuario` del componente `ModalUsuarioComponent` manejar√° el error.
+
+Aqu√≠ est√° el fragmento de c√≥digo relevante:
+
+```TypeScript
+this.usuarioServicio.registrar(this.formRegistro.value).pipe(
+  finalize(() => this.motrarLoading = false)
+).subscribe({
+  next: (response: SesionUsuario) => {
+    console.log('Usuario registrado con √©xito', response);
+    this.compartidoServicio.mostrarAlerta('Usuario registrado con √©xito', 'succes');
+    this.router.navigate(['/layout/listado-usuario']);
+  },
+  error: error => {
+    console.error('Hubo un error al registrar el usuario', error);
+    this.compartidoServicio.mostrarAlerta('Hubo un error al registrar el usuario', 'error');
+  }
+});
+```
+
+Si la solicitud falla, se ejecutar√° el bloque de c√≥digo en la secci√≥n `error` del m√©todo `subscribe`. Este bloque de c√≥digo hace dos cosas:
+
+1. Imprime un mensaje de error en la consola con `console.error('Hubo un error al registrar el usuario', error);`. Esto es √∫til para la depuraci√≥n, ya que el objeto `error` contendr√° detalles sobre lo que sali√≥ mal.
+
+2. Muestra una alerta al usuario con `this.compartidoServicio.mostrarAlerta('Hubo un error al registrar el usuario', 'error');`. Esto informa al usuario que algo sali√≥ mal durante el registro.§Type ¶StatusØFollowUpPromptsíŸI¬øC√≥mo puedo personalizar el mensaje de error que se muestra al usuario?ŸM¬øQu√© informaci√≥n contiene el objeto de error que se imprime en la consola?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇGÁ˚¿f<ö™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$fd9262f9-451a-46a9-b6b6-c59fc9a4b1b2Ÿ$22f654ee-78a6-47b0-a287-b1c8b142dd6bëÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$fd9262f9-451a-46a9-b6b6-c59fc9a4b1b2©Reference¿•Value»}dŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄N<section class="p-3 p-md-4 p-xl-5">
+  <div class="container">
+    <div class="card border-light-subtle shadow-sm">
+      <div class="row g-0">
+        <div class="col-12 col-md-6" style="background-color: orange;">
+          <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+              <a href="/layout">
+                <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              </a>
+              <hr class="border-primary-subtle mb-4">
+              <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
+                eficaz, dise√±ado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Iniciar Sesi√≥n</h2>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Correo electr√≥nico</mat-label>
+                    <input matInput formControlName="email" autocomplete="off" type="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                     matInput autocomplete="off">
+                     <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                       type="button">
+                        <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off': 'visibility'}}</mat-icon>
+                     </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" [disabled]="formLogin.invalid" style="background-color: orange; color: black; font-weight: bold;">
+                      Iniciar Sesion
+                    </button>
+                    <a href="/recuperar" class="forgot-password-link">¬øHas olvidado tu contrase√±a?</a>
+                  </div>
+                  <div class="or-container">
+                    <div class="line-separator"></div>
+                    <hr>
+                    <div class="line-separator"></div>
+                </div>
+                <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" (click)="iniciarSesion()" style="background-color: #f2f2f2; color: black; font-weight: bold;">
+                        <img src="https://img.icons8.com/color/22/000000/google-logo.png"> Iniciar Sesi√≥n con Google
+                    </button>
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading"></mat-progress-bar>
+ØOriginalContent¿™SelectionsëÉ•Caret¿•Start £EndÕH®FilePathŸDD:\DogWalkPlus\DogWalkApp\src\app\usuario\login\login.component.html®Language§HTMLëíìÅ•Value Ÿ{necesito que funcione. No hay nada que se puea cambiar para intentar ver si funciona? O dime si he de crear archivos nuevos¿®ResponseÖßContent⁄wBas√°ndome en el c√≥digo que has proporcionado, parece que la l√≥gica de inicio de sesi√≥n y registro est√° correctamente implementada. Sin embargo, hay algunas cosas que podr√≠as verificar o cambiar para intentar solucionar el problema:
+
+1. **Verifica la URL de la API**: Aseg√∫rate de que la URL de la API en el archivo `enviroment.ts` es correcta y que la API est√° funcionando correctamente.
+
+2. **Verifica los nombres de los campos del formulario**: Aseg√∫rate de que los nombres de los campos del formulario en los archivos HTML coinciden con los nombres de las propiedades en las interfaces `Registro` y `SesionUsuario`.
+
+3. **Manejo de errores en el servicio**: Podr√≠as mejorar el manejo de errores en el servicio `UsuarioService` para obtener m√°s informaci√≥n sobre los errores que puedan estar ocurriendo. Aqu√≠ te dejo un ejemplo de c√≥mo podr√≠as hacerlo:
+
+```TypeScript
+iniciarSesion(request: LoginUsuario): Observable<SesionUsuario> {
+  return this.http.post<SesionUsuario>(this.baseUrl + 'IniciarSesion', request).pipe(
+    catchError(error => {
+      console.error('Hubo un error al iniciar sesi√≥n', error);
+      return throwError(error);
+    })
+  );
+}
+
+registrar(request: Registro): Observable<SesionUsuario> {
+  return this.http.post<SesionUsuario>(this.baseUrl + 'Registrar', request).pipe(
+    catchError(error => {
+      console.error('Hubo un error al registrar el usuario', error);
+      return throwError(error);
+    })
+  );
+}
+```
+
+4. **Verifica las respuestas de la API**: Aseg√∫rate de que las respuestas de la API coinciden con las interfaces `Registro` y `SesionUsuario`. Si la API devuelve datos adicionales o si los nombres de los campos no coinciden exactamente, podr√≠as tener problemas.
+
+Si despu√©s de verificar y realizar estos cambios el problema persiste, te recomendar√≠a que depures tu aplicaci√≥n paso a paso para identificar en qu√© punto exactamente est√° fallando.§Type ¶StatusØFollowUpPromptsê≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ` ¶f<ö£™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$b175ad64-0012-41d9-833b-6dddad5473f6Ÿ$d385c7c1-6cd0-4384-b252-7715a55da828ëÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$b175ad64-0012-41d9-833b-6dddad5473f6©Reference¿•Value»qdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄9import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { enviroment } from 'src/enviroments/enviroment';
+import { LoginUsuario } from '../Interfaces/login';
+import { SesionUsuario } from '../Interfaces/sesion';
+import { Registro } from '../Interfaces/registro';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+import { Usuario } from '../Interfaces/usuario';
+import { Recuperar } from '../Interfaces/recuperar'; // Aseg√∫rate de importar el modelo Recuperar desde la ubicaci√≥n correcta
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UsuarioService {
+
+  baseUrl: string = enviroment.apiUrl + 'Usuario/';
+
+  constructor(private http: HttpClient) { }
+
+  iniciarSesion(request: LoginUsuario): Observable<SesionUsuario> {
+    return this.http.post<SesionUsuario>(`${this.baseUrl}login`, request).pipe(
+      tap(response => {
+        // Almacena el token en localStorage
+        localStorage.setItem('token', response.token);
+      })
+    );
+  }
+
+  registrar(request: Registro): Observable<SesionUsuario> {
+    console.log(request);
+    return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request);
+  }
+
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.baseUrl}usuarios`);
+  }
+
+  lista(): Observable<ApiResponse>{
+    return this.http.get<ApiResponse>(`${this.baseUrl}`);
+  }
+
+  /*
+  listadoRoles(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrl}listadoRoles`);
+  }
+  */
+
+  enviarEmail(email: string) {
+    const datos: Recuperar = {
+      email: email ?? ''
+    };
+    return this.http.post(`${this.baseUrl}recuperar-contrasenya`, datos);
+  }
+}
+ØOriginalContent¿™SelectionsëÉ•Caret¿•StartÕ£EndÕ6®FilePathŸED:\DogWalkPlus\DogWalkApp\src\app\usuario\services\usuario.service.ts®Language™TypeScriptëíìÅ•Value Ÿ0esta todo correcto sin errores. No entiendo nada¿®ResponseÖßContent⁄êEntiendo tu frustraci√≥n. A veces, los problemas en el desarrollo de software pueden ser dif√≠ciles de diagnosticar, especialmente cuando no hay errores obvios.
+
+Aqu√≠ hay algunas sugerencias adicionales que podr√≠as considerar:
+
+1. **Verifica la comunicaci√≥n con la API**: Usa una herramienta como Postman o curl para hacer solicitudes directamente a la API y ver si las respuestas son las esperadas. Esto puede ayudarte a determinar si el problema est√° en el frontend o en el backend.
+
+2. **Depuraci√≥n paso a paso**: Usa las herramientas de depuraci√≥n de tu IDE o navegador para seguir el flujo de ejecuci√≥n paso a paso. Esto puede ayudarte a identificar d√≥nde se produce el problema.
+
+3. **Logs del servidor**: Si tienes acceso a los logs del servidor, estos pueden proporcionarte informaci√≥n valiosa sobre lo que est√° sucediendo cuando se realiza la solicitud a la API.
+
+4. **Verifica la consola del navegador**: Aseg√∫rate de revisar la consola del navegador para ver si hay alg√∫n error que se est√© produciendo all√≠.
+
+5. **Prueba con datos diferentes**: Intenta registrar o iniciar sesi√≥n con diferentes conjuntos de datos para ver si el problema est√° relacionado con los datos espec√≠ficos que est√°s utilizando.
+
+Si despu√©s de todo esto sigues sin poder resolver el problema, podr√≠a ser √∫til pedir una segunda opini√≥n a un colega o buscar ayuda en foros de desarrollo de software como Stack Overflow.§Type ¶StatusØFollowUpPromptsíŸ.¬øC√≥mo puedo usar Postman para probar la API?Ÿ(¬øC√≥mo puedo ver los logs del servidor?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ∏Hêf<öÍ™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$f6a232b3-791c-4edf-96a0-bd5d85ca10b5Ÿ$79b2df79-2d99-49ae-b633-45c785da11b8ëÜØProviderMonikerÇ§NameŸ6Microsoft.VisualStudio.Copilot.DocumentContextProviderßVersion£0.1¶Member§file©CanReduce√©RequestIdŸ$f6a232b3-791c-4edf-96a0-bd5d85ca10b5©Reference¿•Value»qdŸëMicrosoft.VisualStudio.Copilot.DocumentContext, Microsoft.VisualStudio.Copilot, Version=0.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3aÖßContent⁄9import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { enviroment } from 'src/enviroments/enviroment';
+import { LoginUsuario } from '../Interfaces/login';
+import { SesionUsuario } from '../Interfaces/sesion';
+import { Registro } from '../Interfaces/registro';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+import { Usuario } from '../Interfaces/usuario';
+import { Recuperar } from '../Interfaces/recuperar'; // Aseg√∫rate de importar el modelo Recuperar desde la ubicaci√≥n correcta
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UsuarioService {
+
+  baseUrl: string = enviroment.apiUrl + 'Usuario/';
+
+  constructor(private http: HttpClient) { }
+
+  iniciarSesion(request: LoginUsuario): Observable<SesionUsuario> {
+    return this.http.post<SesionUsuario>(`${this.baseUrl}login`, request).pipe(
+      tap(response => {
+        // Almacena el token en localStorage
+        localStorage.setItem('token', response.token);
+      })
+    );
+  }
+
+  registrar(request: Registro): Observable<SesionUsuario> {
+    console.log(request);
+    return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request);
+  }
+
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.baseUrl}usuarios`);
+  }
+
+  lista(): Observable<ApiResponse>{
+    return this.http.get<ApiResponse>(`${this.baseUrl}`);
+  }
+
+  /*
+  listadoRoles(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrl}listadoRoles`);
+  }
+  */
+
+  enviarEmail(email: string) {
+    const datos: Recuperar = {
+      email: email ?? ''
+    };
+    return this.http.post(`${this.baseUrl}recuperar-contrasenya`, datos);
+  }
+}
+ØOriginalContent¿™SelectionsëÉ•Caret¿•StartÕ£EndÕ6®FilePathŸED:\DogWalkPlus\DogWalkApp\src\app\usuario\services\usuario.service.ts®Language™TypeScriptëíìÅ•Value Ÿ¡en postan funciona perfecta,ente y me devuelve el email y el token. Lo unico que quiero es que cuando se registre un usuario ese usuario nuevo se inserte en la base de datos conectada a mi api ¿®ResponseÖßContent⁄RSi la API funciona correctamente en Postman y devuelve el email y el token, entonces el problema puede estar en c√≥mo tu aplicaci√≥n Angular est√° manejando la respuesta de la API.
+
+Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica que est√°s manejando la respuesta de la API correctamente en tu servicio**. Cuando llamas al m√©todo `registrar` en tu servicio `UsuarioService`, deber√≠as estar manejando la respuesta de la API y almacenando el token en el almacenamiento local. Aqu√≠ est√° el c√≥digo relevante:
+
+```TypeScript
+registrar(request: Registro): Observable<SesionUsuario> {
+  console.log(request);
+  return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request).pipe(
+    tap(response => {
+      // Almacena el token en localStorage
+      localStorage.setItem('token', response.token);
+    })
+  );
+}
+```
+
+2. **Verifica que est√°s manejando la respuesta de la API correctamente en tu componente**. Cuando llamas al m√©todo `registrar` en tu componente, deber√≠as estar manejando la respuesta de la API y redirigiendo al usuario a la p√°gina de inicio de sesi√≥n. Aqu√≠ est√° el c√≥digo relevante:
+
+```TypeScript
+this.usuarioServicio.registrar(this.formRegistro.value).subscribe({
+  next: (response: SesionUsuario) => {
+    console.log('Usuario registrado con √©xito', response);
+    this.router.navigate(['/layout/listado-usuario']);
+  },
+  error: error => {
+    console.error('Hubo un error al registrar el usuario', error);
+  }
+});
+```
+
+3. **Verifica que est√°s enviando los datos correctos a la API**. Aseg√∫rate de que los datos que est√°s enviando a la API en la solicitud de registro son correctos y que coinciden con lo que la API espera.
+
+Si despu√©s de verificar estas cosas el problema persiste, podr√≠a ser √∫til revisar la documentaci√≥n de la API o ponerse en contacto con el equipo que mantiene la API para obtener m√°s ayuda.§Type ¶StatusØFollowUpPromptsíŸ\¬øHas verificado que los datos enviados a la API desde la aplicaci√≥n Angular son correctos?ŸY¬øHas intentado depurar tu aplicaci√≥n Angular para ver d√≥nde podr√≠a estar el problema?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ¡äTf<õŒ™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$483e878d-6d9b-4917-8445-4ceb850bd886Ÿ$614cb368-856c-4aa9-a378-515b20734e93êëíìÅ•Value Ÿpme sigue saltando Bad request en la consola del navegador aunque me devuelve los console.log lo que he ingresado¿®ResponseÖßContent⁄lEl error "Bad Request" generalmente significa que el servidor no pudo entender la solicitud debido a una sintaxis inv√°lida. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica los datos enviados a la API**: Aseg√∫rate de que los datos que est√°s enviando a la API en la solicitud de registro son correctos y que coinciden con lo que la API espera. Puedes hacer esto imprimiendo los datos que est√°s enviando en la consola antes de hacer la solicitud.
+
+```TypeScript
+console.log('Datos enviados a la API:', this.formRegistro.value);
+```
+
+2. **Verifica los nombres de los campos del formulario**: Aseg√∫rate de que los nombres de los campos del formulario en los archivos HTML coinciden con los nombres de las propiedades en las interfaces `Registro` y `SesionUsuario`.
+
+3. **Verifica la URL de la API**: Aseg√∫rate de que la URL de la API en el archivo `enviroment.ts` es correcta y que la API est√° funcionando correctamente.
+
+Si despu√©s de verificar estas cosas el problema persiste, podr√≠a ser √∫til revisar la documentaci√≥n de la API o ponerse en contacto con el equipo que mantiene la API para obtener m√°s ayuda.§Type ¶StatusØFollowUpPromptsê≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ2©(∞f<õˇ™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$df2bf30e-ffc2-4994-80cf-b07db111af90Ÿ$1f473474-4f9d-474d-bd70-c47ce7c22103êëíìÅ•Value ŸBel equipo soy yo. Es un proyecto personal para un trabajo de clase¿®ResponseÖßContent⁄7Entiendo, en ese caso, te recomendar√≠a revisar tambi√©n el c√≥digo del lado del servidor. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica la l√≥gica de validaci√≥n de la API**: Aseg√∫rate de que la l√≥gica de validaci√≥n en tu API est√© funcionando correctamente y que est√© validando los datos de entrada correctamente.
+
+2. **Verifica los mensajes de error de la API**: Si tu API devuelve mensajes de error detallados, estos pueden proporcionarte pistas sobre lo que est√° causando el error "Bad Request". 
+
+3. **Depura la API**: Si tienes la capacidad de depurar la API, podr√≠as intentar hacerlo para ver exactamente d√≥nde se produce el error.
+
+4. **Verifica la base de datos**: Si est√°s guardando los datos del usuario en una base de datos, aseg√∫rate de que la base de datos est√© configurada correctamente y que los datos que est√°s intentando guardar cumplan con todas las restricciones de la base de datos.
+
+5. **Verifica los logs del servidor**: Si tu servidor est√° configurado para registrar detalles sobre cada solicitud, estos logs pueden proporcionarte informaci√≥n valiosa sobre lo que est√° sucediendo.
+
+Espero que esto te ayude a solucionar el problema. Recuerda, la depuraci√≥n es un proceso de eliminaci√≥n. Si puedes descartar posibles causas del problema, eventualmente encontrar√°s la soluci√≥n.§Type ¶StatusØFollowUpPromptsíŸ8¬øC√≥mo puedo depurar mi API para encontrar el problema?ŸL¬øC√≥mo puedo verificar si mi base de datos est√° configurada correctamente?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇLl»`f<ú∞™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$6d419507-6b13-43e1-bb4f-94671ba528aeŸ$3347f114-3f05-4e79-b54c-1989db1d111bêëíìÅ•Value ⁄dmira te proporciono el codigo de mi backend: este es el metodo para registar:  [HttpPost("registro")] // POST: api/usuarios Aqui insertamos un nuevo usuario escrito en el body en formato JSON en Postman
+        public async Task<ActionResult<UsuarioDto>> Registro(RegistroDto registroDto)
+        {
+            if (await UsuarioExiste(registroDto.Email))
+            {
+                return BadRequest("El usuario ya existe");
+            }
+
+            var usuario = new Usuario
+            {
+                DniUsuario = registroDto.DniUsuario,
+                Nombre = registroDto.Nombre,
+                Apellido = registroDto.Apellido,
+                Direcci√≥n = registroDto.Direcci√≥n,
+                Email = registroDto.Email,
+                Password = registroDto.Password,
+                TelefonoUsuario = registroDto.TelefonoUsuario
+            };
+            
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+
+            return new UsuarioDto
+            {
+                Email = usuario.Email,
+                Token = _tokenServicio.CrearToken(usuario)
+            };
+        }; este es el dto: using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Models.DTOs
+{
+    public class RegistroDto
+    {
+        [Required(ErrorMessage = "El DNI es requerido")]
+        public string DniUsuario { get; set; }
+
+        [Required(ErrorMessage = "El nombre es requerido")]
+        public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "El apellido es requerido")]
+        public string Apellido { get; set; }
+
+        [Required(ErrorMessage = "La direcci√≥n es requerida")]
+        public string Direcci√≥n { get; set; }
+
+        [Required(ErrorMessage = "El email es requerido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "La contrase√±a es requerida")]
+        [StringLength(10, MinimumLength = 4, ErrorMessage = "El password debe ser m√≠nimo 4 M√°ximo 10 caracteres")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "El tel√©fono es requerido")]
+        public string TelefonoUsuario { get; set; }
+    }
+}
+este es el apierrorresponse: namespace API.Errores
+{
+    public class ApiErrorResponse
+    {
+        public ApiErrorResponse(int statusCode, string mensaje = null)
+        {
+            StatusCode = statusCode;
+            Mensaje = mensaje ?? GetMensajeStatusCode(statusCode);
+        }
+
+        public int StatusCode { get; set; }
+        public string Mensaje { get; set; }
+
+        private string GetMensajeStatusCode(int statusCode)
+        {
+            return statusCode switch
+            {
+                400 => "Se ha realizado una solicitud no v√°lida",
+                401 => "No est√°s autorizado para este recurso",
+                404 => "Recurso No encontrado",
+                500 => "Error interno del Servidor",
+                _ => null
+            };
+        }
+
+    }
+}
+y no se que mas puedes necesitar¿®ResponseÖßContent⁄Gracias por proporcionar el c√≥digo de tu backend. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica los datos enviados a la API**: Aseg√∫rate de que los datos que est√°s enviando desde tu aplicaci√≥n Angular coinciden con lo que tu API espera. En este caso, tu API espera un objeto `RegistroDto` que tiene las siguientes propiedades: `DniUsuario`, `Nombre`, `Apellido`, `Direcci√≥n`, `Email`, `Password` y `TelefonoUsuario`. Todos estos campos son obligatorios.
+
+2. **Verifica la l√≥gica de validaci√≥n de la API**: Tu API tiene una l√≥gica de validaci√≥n que verifica si el usuario ya existe antes de intentar crear uno nuevo. Si el usuario ya existe, la API devuelve un error "Bad Request". Aseg√∫rate de que esta l√≥gica de validaci√≥n est√© funcionando correctamente.
+
+3. **Verifica la l√≥gica de la base de datos**: Tu API intenta guardar el nuevo usuario en la base de datos con `_context.Usuarios.Add(usuario);`. Aseg√∫rate de que tu base de datos est√© configurada correctamente y que no haya restricciones o problemas que puedan estar causando el error.
+
+4. **Verifica los mensajes de error de la API**: Tu API est√° configurada para devolver mensajes de error detallados. Estos mensajes de error pueden proporcionarte pistas sobre lo que est√° causando el error "Bad Request". Aseg√∫rate de que est√°s manejando y mostrando estos mensajes de error en tu aplicaci√≥n Angular.
+
+Si despu√©s de verificar estas cosas el problema persiste, podr√≠a ser √∫til depurar tu API para ver exactamente d√≥nde se produce el error.§Type ¶StatusØFollowUpPromptsíŸg¬øHas verificado si los datos enviados desde la aplicaci√≥n Angular coinciden con lo que tu API espera?ŸO¬øHas intentado depurar tu API para ver exactamente d√≥nde se produce el error?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇü!pf<úÓ™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$1fb71cd8-bcaf-44d6-b4ad-4975c398645bŸ$4f2470e4-bd65-45d3-8130-ad5f0fabd7dbêëíìÅ•Value ⁄8este es mi dbcontext: using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Models.Models;
+
+namespace Models.Context;
+
+public partial class DogWalkPlusContext : DbContext
+{
+    public DogWalkPlusContext()
+    {
+    }
+
+    public DogWalkPlusContext(DbContextOptions<DogWalkPlusContext> options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet<Foto> Fotos { get; set; }
+
+    public virtual DbSet<Horario> Horarios { get; set; }
+
+    public virtual DbSet<Opinione> Opiniones { get; set; }
+
+    public virtual DbSet<Paseador> Paseadors { get; set; }
+
+    public virtual DbSet<Perro> Perros { get; set; }
+
+    public virtual DbSet<Precio> Precios { get; set; }
+
+    public virtual DbSet<Ranking> Rankings { get; set; }
+
+    public virtual DbSet<Reserva> Reservas { get; set; }
+
+    public virtual DbSet<Servicio> Servicios { get; set; }
+
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-24R8O28;Database=DOG_WALK_PLUS;Trust Server Certificate=true;User Id=AAM90;Password=2ZE868Fru;MultipleActiveResultSets=true");
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Foto>(entity =>
+        {
+            entity.HasKey(e => e.IdFoto).HasName("PK__Fotos__620EA3A53500BEB4");
+
+            entity.Property(e => e.IdFoto).HasColumnName("id_foto");
+            entity.Property(e => e.Descripcion)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.IdPerro).HasColumnName("id_perro");
+            entity.Property(e => e.UrlFoto)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("url_foto");
+
+            entity.HasOne(d => d.IdPerroNavigation).WithMany(p => p.Fotos)
+                .HasForeignKey(d => d.IdPerro)
+                .HasConstraintName("FK__Fotos__id_perro__6A30C649");
+        });
+
+        modelBuilder.Entity<Horario>(entity =>
+        {
+            entity.HasKey(e => e.IdHorario).HasName("PK__Horario__C5836D6939308B65");
+
+            entity.ToTable("Horario");
+
+            entity.Property(e => e.IdHorario).HasColumnName("id_horario");
+            entity.Property(e => e.Disponibilidad)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("disponibilidad");
+            entity.Property(e => e.FechaHora)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_hora");
+        });
+
+        modelBuilder.Entity<Opinione>(entity =>
+        {
+            entity.HasKey(e => e.IdOpinion).HasName("PK__Opinione__04DDBD78B95BF317");
+
+            entity.Property(e => e.IdOpinion).HasColumnName("id_opinion");
+            entity.Property(e => e.Comentario)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("comentario");
+            entity.Property(e => e.IdPaseador).HasColumnName("id_paseador");
+            entity.Property(e => e.IdPerro).HasColumnName("id_perro");
+            entity.Property(e => e.Puntuacion).HasColumnName("puntuacion");
+
+            entity.HasOne(d => d.IdPaseadorNavigation).WithMany(p => p.Opiniones)
+                .HasForeignKey(d => d.IdPaseador)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Opiniones__id_pa__6EF57B66");
+
+            entity.HasOne(d => d.IdPerroNavigation).WithMany(p => p.Opiniones)
+                .HasForeignKey(d => d.IdPerro)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Opiniones__id_pe__6E01572D");
+        });
+
+        modelBuilder.Entity<Paseador>(entity =>
+        {
+            entity.HasKey(e => e.IdPaseador).HasName("PK__Paseador__C0836292BE2D876F");
+
+            entity.ToTable("Paseador");
+
+            entity.HasIndex(e => e.Email, "UQ__Paseador__AB6E6164FEA0799A").IsUnique();
+
+            entity.Property(e => e.IdPaseador).HasColumnName("id_paseador");
+            entity.Property(e => e.Apellido)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("apellido");
+            entity.Property(e => e.Direcci√≥n)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("direcci√≥n");
+            entity.Property(e => e.DniPaseador)
+                .IsRequired()
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("password");
+            entity.Property(e => e.TelefonoPaseador)
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .IsFixedLength();
+        });
+
+        modelBuilder.Entity<Perro>(entity =>
+        {
+            entity.HasKey(e => e.IdPerro).HasName("PK__Perro__93FAA747011F9CB2");
+
+            entity.ToTable("Perro");
+
+            entity.Property(e => e.IdPerro).HasColumnName("id_perro");
+            entity.Property(e => e.Edad).HasColumnName("edad");
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+            entity.Property(e => e.Instagram)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("instagram");
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Raza)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("raza");
+            entity.Property(e => e.Tiktok)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("tiktok");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Perros)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Perro__id_usuari__59063A47");
+        });
+
+        modelBuilder.Entity<Precio>(entity =>
+        {
+            entity.HasKey(e => new { e.IdPaseador, e.IdServicio }).HasName("PK__Precios__167E656FF392DA88");
+
+            entity.Property(e => e.IdPaseador).HasColumnName("id_paseador");
+            entity.Property(e => e.IdServicio).HasColumnName("id_servicio");
+            entity.Property(e => e.Precio1)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("precio");
+
+            entity.HasOne(d => d.IdPaseadorNavigation).WithMany(p => p.Precios)
+                .HasForeignKey(d => d.IdPaseador)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Precios__id_pase__5535A963");
+
+            entity.HasOne(d => d.IdServicioNavigation).WithMany(p => p.Precios)
+                .HasForeignKey(d => d.IdServicio)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Precios__id_serv__5629CD9C");
+        });
+
+        modelBuilder.Entity<Ranking>(entity =>
+        {
+            entity.HasKey(e => new { e.IdUsuario, e.IdPaseador }).HasName("PK__Ranking__72363284540DF759");
+
+            entity.ToTable("Ranking");
+
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+            entity.Property(e => e.IdPaseador).HasColumnName("id_paseador");
+            entity.Property(e => e.Comentario)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("comentario");
+            entity.Property(e => e.Valoracion).HasColumnName("valoracion");
+
+            entity.HasOne(d => d.IdPaseadorNavigation).WithMany(p => p.Rankings)
+                .HasForeignKey(d => d.IdPaseador)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Ranking__id_pase__6754599E");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Rankings)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Ranking__id_usua__66603565");
+        });
+
+        modelBuilder.Entity<Reserva>(entity =>
+        {
+            entity.HasKey(e => e.IdReserva).HasName("PK__Reservas__423CBE5D68BD8FFB");
+
+            entity.Property(e => e.IdReserva).HasColumnName("id_reserva");
+            entity.Property(e => e.EstadoReserva)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("estado_reserva");
+            entity.Property(e => e.FechaReserva)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_reserva");
+            entity.Property(e => e.IdHorario).HasColumnName("id_horario");
+            entity.Property(e => e.IdPaseador).HasColumnName("id_paseador");
+            entity.Property(e => e.IdPerro).HasColumnName("id_perro");
+            entity.Property(e => e.IdServicio).HasColumnName("id_servicio");
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+
+            entity.HasOne(d => d.IdHorarioNavigation).WithMany(p => p.Reservas)
+                .HasForeignKey(d => d.IdHorario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Reservas__id_hor__628FA481");
+
+            entity.HasOne(d => d.IdPaseadorNavigation).WithMany(p => p.Reservas)
+                .HasForeignKey(d => d.IdPaseador)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Reservas__id_pas__5FB337D6");
+
+            entity.HasOne(d => d.IdPerroNavigation).WithMany(p => p.Reservas)
+                .HasForeignKey(d => d.IdPerro)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Reservas__id_per__619B8048");
+
+            entity.HasOne(d => d.IdServicioNavigation).WithMany(p => p.Reservas)
+                .HasForeignKey(d => d.IdServicio)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Reservas__id_ser__60A75C0F");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Reservas)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Reservas__id_usu__5EBF139D");
+        });
+
+        modelBuilder.Entity<Servicio>(entity =>
+        {
+            entity.HasKey(e => e.IdServicio).HasName("PK__Servicio__6FD07FDC242612FA");
+
+            entity.Property(e => e.IdServicio).HasColumnName("id_servicio");
+            entity.Property(e => e.DescripcionServicio)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("descripcion_servicio");
+            entity.Property(e => e.NombreServicio)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("nombre_servicio");
+        });
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__4E3E04ADF1FABD7D");
+
+            entity.ToTable("Usuario");
+
+            entity.HasIndex(e => e.Email, "UQ__Usuario__AB6E61643F74DBF3").IsUnique();
+
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+            entity.Property(e => e.Apellido)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("apellido");
+            entity.Property(e => e.Direcci√≥n)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("direcci√≥n");
+            entity.Property(e => e.DniUsuario)
+                .IsRequired()
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("password");
+            entity.Property(e => e.TelefonoUsuario)
+                .IsRequired()
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .IsFixedLength();
+        });
+
+        OnModelCreatingPartial(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+}¿®ResponseÖßContent⁄.Gracias por proporcionar el c√≥digo de tu DbContext. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica la conexi√≥n a la base de datos**: Aseg√∫rate de que la cadena de conexi√≥n a la base de datos en tu DbContext es correcta y que tu aplicaci√≥n puede conectarse a la base de datos correctamente.
+
+2. **Verifica las restricciones de la base de datos**: Tu base de datos puede tener restricciones que est√°n causando el error "Bad Request". Por ejemplo, si tienes una restricci√≥n de unicidad en el campo `Email` y est√°s intentando insertar un usuario con un email que ya existe en la base de datos, esto causar√≠a un error.
+
+3. **Verifica la l√≥gica de la base de datos**: Tu API intenta guardar el nuevo usuario en la base de datos con `_context.Usuarios.Add(usuario);`. Aseg√∫rate de que esta l√≥gica est√© funcionando correctamente.
+
+4. **Depura la API**: Si tienes la capacidad de depurar la API, podr√≠as intentar hacerlo para ver exactamente d√≥nde se produce el error. Podr√≠as poner un punto de interrupci√≥n en la l√≠nea donde se intenta guardar el nuevo usuario en la base de datos y ver si la ejecuci√≥n llega a ese punto.
+
+Si despu√©s de verificar estas cosas el problema persiste, podr√≠a ser √∫til revisar los logs del servidor o la documentaci√≥n de Entity Framework Core para obtener m√°s ayuda.§Type ¶StatusØFollowUpPromptsíŸO¬øHas probado a depurar tu API para ver d√≥nde se produce exactamente el error?Ÿ>¬øHas comprobado si hay alg√∫n error en los logs del servidor?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇ
+îß†f<ù\™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$6991dd2a-d3fd-4717-a51d-ba68be4834d8Ÿ$30b92576-3ade-420b-a8b3-c5432bc3ac7cêëíìÅ•Value Ÿúen mi api no hay errores porque funciona a la perfeccion, y en concreto el metodo para registrar funciona correctamente. tanto en swagger ui como en postamn¿®ResponseÖßContent⁄Si tu API funciona correctamente en Swagger UI y Postman, entonces el problema probablemente est√© en c√≥mo tu aplicaci√≥n Angular est√° enviando la solicitud a la API. Aqu√≠ hay algunas cosas que podr√≠as verificar:
+
+1. **Verifica los datos enviados a la API**: Aseg√∫rate de que los datos que est√°s enviando desde tu aplicaci√≥n Angular coinciden con lo que tu API espera. En este caso, tu API espera un objeto `RegistroDto` que tiene las siguientes propiedades: `DniUsuario`, `Nombre`, `Apellido`, `Direcci√≥n`, `Email`, `Password` y `TelefonoUsuario`. Todos estos campos son obligatorios.
+
+2. **Verifica la URL de la API**: Aseg√∫rate de que la URL de la API en tu aplicaci√≥n Angular es correcta. Deber√≠a ser la misma URL que est√°s usando en Swagger UI y Postman.
+
+3. **Verifica los headers de la solicitud**: Aseg√∫rate de que est√°s enviando los headers correctos con tu solicitud. Algunas APIs requieren headers espec√≠ficos, como un token de autenticaci√≥n o un header `Content-Type`.
+
+4. **Verifica el m√©todo de la solicitud**: Aseg√∫rate de que est√°s enviando la solicitud con el m√©todo correcto (`POST` en este caso).
+
+Si despu√©s de verificar estas cosas el problema persiste, podr√≠a ser √∫til usar una herramienta como [Fiddler](https://www.telerik.com/fiddler) o [Wireshark](https://www.wireshark.org/) para capturar el tr√°fico de red entre tu aplicaci√≥n Angular y la API y compararlo con el tr√°fico de red cuando usas Swagger UI o Postman. Esto podr√≠a ayudarte a identificar cualquier diferencia que pueda estar causando el problema.§Type ¶StatusØFollowUpPromptsíŸV¬øHas verificado si est√°s enviando los headers correctos con tu solicitud en Angular?Ÿ§¬øHas intentado capturar el tr√°fico de red entre tu aplicaci√≥n Angular y la API para identificar posibles diferencias con las solicitudes de Postman o Swagger UI?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇK6!–f<ùÒ™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$67e551ef-ccb7-4aa2-a9e8-21c0edc19876Ÿ$8c8db50b-18b4-4ccb-aa24-516ee8f9e8b3êëíìÅ•Value ŸV¬øHas verificado si est√°s enviando los headers correctos con tu solicitud en Angular?¿®ResponseÖßContent⁄ÖEn Angular, cuando haces una solicitud HTTP utilizando el servicio HttpClient, generalmente no necesitas establecer expl√≠citamente el encabezado `Content-Type`. Angular lo establece autom√°ticamente en `application/json`.
+
+Sin embargo, si tu API espera un encabezado espec√≠fico, necesitar√°s agregarlo a tu solicitud. Aqu√≠ te muestro c√≥mo puedes hacerlo:
+
+```TypeScript
+import { HttpHeaders } from '@angular/common/http';
+
+const headers = new HttpHeaders({
+  'Mi-Encabezado-Especifico': 'Valor del encabezado'
+});
+
+this.http.post('mi-url-de-la-api', datos, { headers: headers }).subscribe(...);
+```
+
+Reemplaza `'Mi-Encabezado-Especifico'` y `'Valor del encabezado'` con el nombre y el valor del encabezado que tu API espera.
+
+Si tu API utiliza autenticaci√≥n y espera un token de autenticaci√≥n en el encabezado de la solicitud, necesitar√°s agregar este encabezado tambi√©n. Aqu√≠ te muestro c√≥mo puedes hacerlo:
+
+```TypeScript
+const headers = new HttpHeaders({
+  'Authorization': 'Bearer ' + miTokenDeAutenticacion
+});
+
+this.http.post('mi-url-de-la-api', datos, { headers: headers }).subscribe(...);
+```
+
+Reemplaza `'miTokenDeAutenticacion'` con el token de autenticaci√≥n que tu API espera.
+
+Si despu√©s de verificar los encabezados de la solicitud el problema persiste, podr√≠a ser √∫til revisar la documentaci√≥n de tu API o ponerse en contacto con el equipo que mantiene la API para obtener m√°s ayuda.§Type ¶StatusØFollowUpPromptsíŸh¬øC√≥mo puedo verificar si los headers se est√°n enviando correctamente en mi solicitud HTTP en Angular?Ÿo¬øExiste alguna herramienta que pueda usar para depurar las solicitudes HTTP que env√≠a mi aplicaci√≥n Angular?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿Ü®DateTime◊ˇt˚9f<û™ThreadName¿∞CopilotSessionIdÇ§GuidŸ$76fd7327-3ca4-42dc-86a6-e3321e79f8a7®ClientIdÅ¢IdŸ4Microsoft.VisualStudio.Conversations.Chat.HelpWindowßRequestÅßRequestïŸ$cddec764-737b-4a25-84ca-4fee2248e46aŸ$55e3aa96-42fa-41fc-b6d9-93f145ed6fe9êëíìÅ•Value Ÿo¬øExiste alguna herramienta que pueda usar para depurar las solicitudes HTTP que env√≠a mi aplicaci√≥n Angular?¿®ResponseÖßContent⁄]S√≠, existen varias herramientas que puedes usar para depurar las solicitudes HTTP que env√≠a tu aplicaci√≥n Angular. Aqu√≠ te menciono algunas:
+
+1. **Herramientas de desarrollo del navegador**: Todos los navegadores modernos incluyen herramientas de desarrollo que te permiten inspeccionar las solicitudes y respuestas HTTP. Por ejemplo, en Google Chrome, puedes abrir las Herramientas de Desarrollo con F12, luego ir a la pesta√±a "Network", y all√≠ podr√°s ver todas las solicitudes HTTP que hace tu aplicaci√≥n.
+
+2. **Postman**: Postman es una herramienta que te permite construir y probar solicitudes HTTP. Puedes replicar la solicitud que tu aplicaci√≥n Angular est√° haciendo y experimentar con ella en Postman para ver si puedes identificar el problema.
+
+3. **Fiddler o Wireshark**: Estas son herramientas de captura de tr√°fico de red que te permiten ver todas las solicitudes y respuestas HTTP que pasan por tu red. Estas herramientas pueden ser √∫tiles si necesitas un nivel de detalle m√°s bajo que el que proporcionan las herramientas de desarrollo del navegador.
+
+4. **Herramientas de depuraci√≥n de Angular**: Angular tambi√©n tiene algunas herramientas de depuraci√≥n que puedes usar. Por ejemplo, puedes usar el operador `tap` de RxJS para registrar informaci√≥n sobre los Observables en tu servicio HTTP.
+
+Aqu√≠ te muestro c√≥mo puedes hacerlo:
+
+```TypeScript
+import { tap } from 'rxjs/operators';
+
+this.http.get('mi-url-de-la-api').pipe(
+  tap(data => console.log(data))
+).subscribe(...);
+```
+
+Esto registrar√° la respuesta de la solicitud HTTP en la consola del navegador, lo que te permitir√° inspeccionarla.§Type ¶StatusØFollowUpPromptsíŸa¬øC√≥mo puedo usar Postman para replicar y probar las solicitudes HTTP de mi aplicaci√≥n Angular?Ÿr¬øPuedes mostrarme un ejemplo de c√≥mo usar el operador `tap` de RxJS para depurar las respuestas HTTP en Angular?≥CodeVulnerabilitiesê∂LoggedSkillInvocations¿

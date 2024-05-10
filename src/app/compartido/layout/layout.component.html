@@ -1,3 +1,9 @@
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+
 <mat-toolbar style="display: flex; justify-content: space-between;">
   <div style="display: flex; align-items: center;">
 
@@ -22,11 +28,11 @@
         <mat-icon style="color: orangered;">group_add</mat-icon>
         Conviértete en Cuidador
       </button>
-      <button mat-button routerLink="/layout/usuarios">
+      <button mat-button routerLink="/layout/opinion">
         <mat-icon style="color: orangered; font-weight: bold">reviews</mat-icon>
         Opiniones
       </button>
-      <button mat-button routerLink="/layout/faqs">
+      <button mat-button routerLink="/layout/duda">
         <mat-icon style="color: orangered;">help_outline</mat-icon>
         ¿Dudas?
       </button>
@@ -61,9 +67,11 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav class="sidenav" style="width: 220px" mode="side" opened="true" color="inherit">
     <mat-nav-list>
-      <a mat-list-item routerLink="/recurso1">Recurso 1</a>
-      <a mat-list-item routerLink="/recurso2">Recurso 2</a>
-      <a mat-list-item routerLink="/recurso3">Recurso 3</a>
+      <a mat-list-item routerLink="/layout/listado-usuario" >Usuarios</a>
+       <a mat-list-item routerLink="/layout/dashboard">Cuidadores</a>
+      <a mat-list-item routerLink="/layout/horario">Horarios y Reservas</a>
+      <a mat-list-item routerLink="/recurso3">Fotos</a>
+      <a mat-list-item routerLink="/recurso3">Blog</a>
       <!-- Agrega más enlaces aquí según sea necesario -->
     </mat-nav-list>
   </mat-sidenav>
@@ -71,7 +79,146 @@
   <mat-sidenav-content>
     <div class="layout-background">
       <router-outlet></router-outlet>
+
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
+
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px;">
+  <h1 class="m-2" style="font-size: 2em; font-weight: bold;">¿CÓMO FUNCIONA?</h1>
+  <div style="display: flex; justify-content: space-around; width: 100%; margin-top: 20px;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+      <div style="display: flex; align-items: center;">
+        <div style="border: 1px solid; border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; background-color: orangered;">1</div>
+        <p style="font-weight: bold; margin-left: 10px; font-size: 20px;">Busca</p>
+      </div>
+      <p style="margin-left: 40px; font-size: 16px;">Busca entre miles de cuidadores </p>
+      <p style="margin-left: 40px; font-size: 16px;">de perros de confianza cerca de ti</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+      <div style="display: flex; align-items: center;">
+        <div style="border: 1px solid; border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; background-color: orangered;">2</div>
+        <p style="font-weight: bold; margin-left: 10px; font-size: 20px;">Reserva</p>
+      </div>
+      <p style="margin-left: 40px; font-size: 16px;">Envía un mensaje al cuidador perfecto para tu </p>
+      <p style="margin-left: 40px; font-size: 16px;">perro, reserva y paga a través de DogWalkApp</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+      <div style="display: flex; align-items: center;">
+        <div style="border: 1px solid; border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; background-color: orangered;">3</div>
+        <p style="font-weight: bold; margin-left: 10px; font-size: 20px;">Relájate</p>
+      </div>
+      <p style="margin-left: 40px; font-size: 16px;">Tu perro se divertirá y estará en familia y tú </p>
+      <p style="margin-left: 40px; font-size: 16px;">recibirás fotografías regularmente</p>
+    </div>
+  </div>
+  <mat-card class="card-espaciada">
+    <div class="frases-container">
+      <div class="frase">
+        <img src="/assets/stethoscope_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cobertura veterinaria</p>
+      </div>
+      <div class="frase">
+        <img src="/assets/verified_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cancelación Gratuita</p>
+      </div>
+      <div class="frase">
+        <img src="/assets/person_check_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Cuidadores Verificados</p>
+      </div>
+      <div class="frase">
+        <img src="/assets/sms_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Soporte y Ayuda</p>
+      </div>
+      <div class="frase">
+        <img src="/assets/credit_score_FILL0_wght400_GRAD0_opsz24.png">
+        <p>Pago Seguro</p>
+      </div>
+    </div>
+    </mat-card>
+
+    <mat-card style="background-color: white; width: 100%; background-image: url('/assets/maps.png'); background-size: cover; ">
+      <mat-card-content style="text-align: center; font-size: 40px;">
+        <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 100px; margin-top: 40px; color: black;">Opiniones de familias de Perros</h1>
+        <div class="container">
+          <div class="card">
+            <div class="card-details">
+              <div class="image-container">
+                <img src="/assets/Account.ico" alt="Cuidador" />
+              </div>
+              <p class="text-title">Antonio</p>
+              <div class="stars">
+                ★★★★★
+              </div>
+              <p class="text-body">Increíble. Mi perro esta muy a gusto. Muy recomendable.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-details">
+              <div class="image-container">
+                <img src="/assets/Account.ico" alt="Cuidador" />
+              </div>
+              <p class="text-title">Miguel</p>
+              <div class="stars">
+                ★★★★★
+              </div>
+              <p class="text-body">Trato muy agradable. Muy educado.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-details">
+              <div class="image-container">
+                <img src="/assets/Account.ico" alt="Cuidador" />
+              </div>
+              <p class="text-title">Patricia</p>
+              <div class="stars">
+                ★★★★★
+              </div>
+              <p class="text-body">Nos da mucha tranquilidad por como se siente mi perro.</p>
+            </div>
+          </div>
+          <!-- Repite para las otras tarjetas -->
+        </div>
+        <button mat-raised-button color="warn" routerLink="/layout/opinion" (click)="scrollToTop()" style="background-color: '#ff7f50'; color: white; font-size: large; width: 150px;">Opiniones</button>
+      </mat-card-content>
+    </mat-card>
+</div>
+
+
+
+<div style="display: flex; justify-content: space-between; padding: 20px; background-color: #f8f9fa;">
+
+  <div>
+    <h4 style="font-weight: bold;">Sobre nosotros</h4>
+  </div>
+  <div>
+    <h4 style="font-weight: bold;">Enlaces útiles</h4>
+    <a routerLink="/faq" style="text-decoration: none; color: inherit; font-weight: bold;">FAQ</a><br>
+    <a routerLink="/contact" style="text-decoration: none; color: inherit; font-weight: bold;">Contacto</a>
+  </div>
+  <div>
+    <h4 style="font-weight: bold;">Contacto</h4>
+    <p>Email: dogwalkapp@gmail.com</p>
+    <p>Teléfono: +1 234 567 890</p>
+  </div>
+  <div>
+    <h4 style="font-weight: bold;">Síguenos</h4>
+    <a href="https://www.facebook.com/dogwalkapp" target="_blank" style="text-decoration: none; color: inherit; ">
+      <img src="/assets/Facebook.ico" alt="Facebook logo" style="width: 24px; height: 24px;"> Facebook
+    </a><br>
+    <a href="https://www.twitter.com/dogwalkapp" target="_blank" style="text-decoration: none; color: inherit;">
+      <img src="/assets/Twitter.ico" alt="Twitter logo" style="width: 24px; height: 24px;"> Twitter
+    </a><br>
+    <a href="https://www.instagram.com/dogwalkapp" target="_blank" style="text-decoration: none; color: inherit;">
+      <img src="/assets/Instagram.ico" alt="Instagram logo" style="width: 24px; height: 24px;"> Instagram
+    </a>
+    </div>
+  <mat-divider class="divider-espaciado"></mat-divider>
+  <div>
+    <a routerLink="/layout" style="text-decoration: none; color: inherit;">
+      <img src="/assets/DogPaw.ico" alt="Huella de perro" style="width: 24px; height: 24px;">
+      <span>Dog Walk App  © 2024</span>
+    </a>
+  </div>
+</div>

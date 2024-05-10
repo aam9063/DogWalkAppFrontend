@@ -17,7 +17,7 @@ export class PaseadorService {
   constructor(private http: HttpClient) { }
 
   iniciarSesionPaseador(request: LoginPaseador): Observable<SesionPaseador> {
-    return this.http.post<SesionPaseador>(`${this.baseUrl}login paseadores`, request).pipe(
+    return this.http.post<SesionPaseador>(`${this.baseUrl}login_paseadores`, request).pipe(
       tap(response => {
         // Almacena el token en localStorage
         localStorage.setItem('tokenPaseador', response.tokenPaseador);
@@ -36,4 +36,9 @@ export class PaseadorService {
   getUbicaciones(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}paseadores/ubicaciones`);
   }
+
+  obtenerPaseadores(): Observable<any> {
+    return this.http.get(`${this.baseUrl}paseadores`);
+  }
+
 }

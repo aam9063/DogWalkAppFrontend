@@ -24,8 +24,8 @@
   </mat-form-field>
   <mat-form-field>
     <strong>Localidad</strong>
-    <input matInput placeholder="Introduce tu código postal" >
-  <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
+    <input matInput placeholder="Introduce tu código postal">
+    <!--[(ngModel)]="codigoPostal" <button mat-raised-button color="primary" (click)="buscarPaseadores()">Buscar</button>-->
     <div #mapContainer></div>
   </mat-form-field>
   <mat-form-field>
@@ -43,6 +43,7 @@
       <mat-option value="option">Gigante [+36kg]</mat-option>
     </mat-select>
   </mat-form-field>
+  <button mat-raised-button class="custom-button" (click)="buscarUbicaciones()">Buscar</button>
   <mat-card class="card-espaciada">
     <mat-card-content class="titulo-destacado">Cuidadores de perros cerca de ti, sin jaulas.</mat-card-content>
 
@@ -70,11 +71,45 @@
     </div>
     <mat-card>
       <div class="contenedor-de-tarjetas">
-        <mat-card class="card-espaciada card-con-lista">
-          <mat-list>
-            <li *ngFor="let marker of dataSource">{{marker.nombre}}</li>
-          </mat-list>
+
+
+
+        <mat-card class="card" *ngFor="let paseador of paseadores; let i = index" [hidden]="i !== currentIndex">
+          <div class="card-details">
+            <div class="image-container">
+              <img src="assets/user.png" class="circular-image">
+            </div>
+            <div class="info-container">
+              <p class="text-title">{{paseador.nombre}}</p>
+              <p class="text-body">{{paseador.email}}</p>
+              <p class="text-body">{{paseador.telefonoPaseador}}</p>
+            </div>
+            <div class="social-icons">
+              <div class="social-icons">
+                <a href="https://www.instagram.com/tu_usuario">
+                  <img src="assets/instagram.png">
+                </a>
+                <a href="https://wa.me/tu_numero">
+                  <img src="assets/whatsapp.png">
+                </a>
+                <a href="https://www.linkedin.com/in/tu_usuario">
+                  <img src="assets/linkedin.png">
+                </a>
+              </div>
+            </div>
+          </div>
         </mat-card>
+        <div class="navigation-buttons">
+          <button mat-icon-button (click)="previousCard()">
+            <mat-icon style="color: orangered;">arrow_back</mat-icon>
+          </button>
+
+          <button mat-icon-button (click)="nextCard()">
+            <mat-icon style="color: orangered;">arrow_forward</mat-icon>
+          </button>
+        </div>
+
+
 
         <mat-card class="card-espaciada card-con-mapa">
           <google-map [center]="center">

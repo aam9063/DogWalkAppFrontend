@@ -5,6 +5,9 @@ import { UsuarioService } from '../services/usuario.service';
 import { CompartidoService } from 'src/app/compartido/compartido.service';
 import { SesionUsuario } from '../Interfaces/sesion';
 import { Registro } from '../Interfaces/registro';
+import { Usuario } from '../Interfaces/usuario';
+import { finalize } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-modal-usuario',
@@ -13,6 +16,8 @@ import { Registro } from '../Interfaces/registro';
 })
 export class ModalUsuarioComponent {
   formRegistro: FormGroup;
+  titulo: string = 'Registrar usuario';
+  nombreBoton: string = 'Registrar';
   ocultarPassword: boolean = true;
   motrarLoading: boolean = false;
 
@@ -39,21 +44,19 @@ export class ModalUsuarioComponent {
     if (this.formRegistro.valid) {
       this.motrarLoading = true;
       this.usuarioServicio.registrar(this.formRegistro.value).subscribe({
-        next: (response: Registro) => {
+        next: (response: SesionUsuario) => {
           console.log('Usuario registrado con éxito', response);
-          this.compartidoServicio.mostrarAlerta('Usuario registrado con éxito', 'succes');
-          this.motrarLoading = false;
           this.router.navigate(['/layout']);
         },
         error: error => {
           console.error('Hubo un error al registrar el usuario', error);
-          this.compartidoServicio.mostrarAlerta('Hubo un error al registrar el usuario', 'error');
-          this.motrarLoading = false;
         }
       });
+
     } else {
       console.log('Formulario no válido');
       this.compartidoServicio.mostrarAlerta('Formulario no válido', 'error');
+      console.log('Datos del formulario:', this.formRegistro.value);
     }
   }
 

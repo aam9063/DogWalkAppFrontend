@@ -3,13 +3,26 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SesionUsuario } from '../usuario/Interfaces/sesion'
 import { SesionPaseador } from '../paseador/interfaces/sesion-paseador';
 import { Registro } from '../usuario/Interfaces/registro';
+import { Opinion } from './interfaces/opinion';
+import { HttpClient } from '@angular/common/http';
+import { enviroment } from 'src/enviroments/enviroment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompartidoService {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  baseUrl: string = enviroment.apiUrl + 'Ranking/';
+
+
+  constructor(private _snackBar: MatSnackBar,
+              private http: HttpClient
+  ) { }
+
+  obtenerRankings(): Observable<Opinion[]> {
+    return this.http.get<Opinion[]>(`${this.baseUrl}rankings`);
+  }
 
   mostrarAlerta(mensaje: string, tipo: string){
     this._snackBar.open(mensaje, tipo, {

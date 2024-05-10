@@ -7,6 +7,11 @@ import { LoginUsuario } from '../Interfaces/login';
 import { SesionUsuario } from '../Interfaces/sesion';
 import { Registro } from '../Interfaces/registro';
 import { ApiResponse } from 'src/app/interfaces/api-response';
+import { Usuario } from '../Interfaces/usuario';
+import { Recuperar } from '../Interfaces/recuperar'; // Asegúrate de importar el modelo Recuperar desde la ubicación correcta
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { UsuarioRegistrado } from '../Interfaces/registrado';
 
 @Injectable({
   providedIn: 'root',
@@ -26,10 +31,31 @@ export class UsuarioService {
     );
   }
 
-  registrar(request: Registro): Observable<Registro> {
-    return this.http.post<Registro>(`${this.baseUrl}registro`, request);
+  registrar(request: Registro): Observable<SesionUsuario> {
+    console.log(request);
+    return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request);
   }
 
 
-}
 
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.baseUrl}usuarios`);
+  }
+
+  lista(): Observable<ApiResponse>{
+    return this.http.get<ApiResponse>(`${this.baseUrl}`);
+  }
+
+  /*
+  listadoRoles(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrl}listadoRoles`);
+  }
+  */
+
+  enviarEmail(email: string) {
+    const datos: Recuperar = {
+      email: email ?? ''
+    };
+    return this.http.post(`${this.baseUrl}recuperar-contrasenya`, datos);
+  }
+}

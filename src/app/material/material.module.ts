@@ -36,6 +36,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -76,7 +77,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
-    LayoutModule
+    LayoutModule,
   ]
 })
 export class MaterialModule { }

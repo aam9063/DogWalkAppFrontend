@@ -11,6 +11,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { CuidadorComponent } from './cuidador/cuidador.component';
 import { OpinionComponent } from './opinion/opinion.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { DudaComponent } from './duda/duda.component';
+import { HorarioComponent } from './horario/horario.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { ContactoComponent } from './contacto/contacto.component';
     CuidadorComponent,
     OpinionComponent,
     ContactoComponent,
+    DudaComponent,
+    HorarioComponent,
   ],
   imports: [
     CommonModule, MaterialModule, LayoutRoutingModule, GoogleMapsModule

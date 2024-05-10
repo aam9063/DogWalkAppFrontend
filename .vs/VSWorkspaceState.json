@@ -3,12 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\compartido",
-    "\\src\\app\\compartido\\buscar",
     "\\src\\app\\paseador",
     "\\src\\app\\paseador\\services",
+    "\\src\\app\\usuario",
+    "\\src\\app\\usuario\\login",
+    "\\src\\app\\usuario\\modal-usuario",
+    "\\src\\app\\usuario\\services",
     "\\src\\enviroments"
   ],
-  "SelectedNode": "\\src\\app\\compartido\\buscar\\buscar.component.ts",
+  "SelectedNode": "\\src\\app\\usuario\\login\\login.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -1,1 +1,93 @@
-<p>cuidador works!</p>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mat-card style="background-color: white; width: 100%; height: 300px; background-image: url('../../../assets/dogs.jpg'); background-size: cover; ">
+    <mat-card-content style="text-align: center; font-size: 40px;">
+      <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 100px; margin-top: 40px; color: white;">
+        ¡Gana dinero pasando tu tiempo con perros!
+      </h1>
+       <button mat-raised-button color="warn" routerLink="/modal-usuario" style="background-color: '#ff7f50'; color: white; font-size: large; width: 150px;">
+        Comenzar
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card style="display: flex; justify-content: center; align-items: center; font-size: large; font-weight: bold; width: 100%; height: 400px;">
+    <div style="text-align: center; padding: 20px; flex: 1; border-right: 1px solid #000;">
+      ¿Cómo Funciona DogWalkApp?
+        </div>
+    <div style="flex: 1;">
+      <!-- Aquí puedes agregar más contenido -->
+      ¿Cómo Funciona DogWalkApp?
+    </div>
+  </mat-card>
+</div>
+
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile [ngStyle]="{'background-color': '#ff7f50'}">
+    <div style="color: white; padding: 40px;">
+      <h2>Garantía</h2>
+      <p>
+        Cada reserva a través de Gudog incluye cobertura veterinaria en caso de accidente
+
+      </p>
+      <p>
+        Pagos online, seguros y fáciles
+      </p>
+      <p>
+        Soporte y ayuda en todo momento
+      </p>
+      <p>
+        ¡Gana un extra mientras cuidas de perros maravillosos!
+
+      </p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/corgi-4415649_640.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/beagle-5375286_640.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+    <div style="color: black; padding: 20px;">
+      <h2>Guardería de día</h2>
+      <p>
+        El servicio de guardería es durante el día, generalmente desde la mañana entre las 8 y las 9, hasta la tarde entre las 15 y las 17, pero también puede ser más corto o en otro horario. El cuidador se asegurará de que el perro esté cómodo y reciba paseos, juegos y cuidado. Debes traer comida para tu perro si necesita ser alimentado mientras se le ofrece el cuidado. Precio de la guardería desde 10€ por día.
+      </p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-color': '#ff7f50'}">
+    <div style="color: white; padding: 40px;">
+      <h2>Paseo de perros</h2>
+      <p>
+        ¿No puedes pasear a tu perro tan a menudo como te gustaría? ¡Encuentra un paseador de perros que lo saque a pasear tanto y tan lejos como sea necesario! Ofrecemos paseos de 30 a 60 minutos para tu perro, que incluyen cobertura veterinaria, así como servicio de recogida y entrega en tu hogar.      </p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/golden-retriever-4135265_1280.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+</mat-grid-list>
+
+<div fxLayout="column" fxLayoutAlign="start center">
+  <mat-card style="width: 100%; height: 100%; background-color: #43bccd; color: white;">
+    <mat-card-content style="text-align: left;">
+      <h1 style="font-weight: bold;">Beneficios de Dog Walk App</h1>
+      <mat-list>
+        <div *ngFor="let benefit of benefits">
+          <mat-list-item class="benefit-container" style="font-size: 18px; color: white">
+            <div class="benefit-title" (click)="benefit.isOpen = !benefit.isOpen">
+              <mat-icon>{{benefit.icon}}</mat-icon>
+              <strong>{{benefit.title}}</strong>
+              <span class="expand-icon">{{benefit.isOpen ? '-' : '+'}}</span>
+            </div>
+            <div class="benefit-description" [style.display]="benefit.isOpen ? 'block' : 'none'">
+              {{benefit.description}}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+

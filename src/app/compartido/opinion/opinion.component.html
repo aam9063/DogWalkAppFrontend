@@ -1,1 +1,18 @@
-<p>opinion works!</p>
+<mat-card style="background-color: white;">
+  <div class="card-container">
+    <div class="container">
+      <mat-card class="card" *ngFor="let opinion of opiniones; let index = index">
+        <div class="card-details">
+          <div class="image-container">
+            <img src="assets/user.png" class="circular-image">
+          </div>
+          <div class="info-container">
+            <p class="text-title">{{opinion.nombrePaseador}}</p>
+            <p class="text-body">{{opinion.comentario}}</p>
+            <p class="text-body">{{opinion.valoracion}}</p>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</mat-card>

@@ -5,7 +5,9 @@
         <div class="col-12 col-md-6" style="background-color: orange;">
           <div class="d-flex align-items-center justify-content-center h-100">
             <div class="col-10 col-xl-8 py-3">
-              <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              <a href="/layout">
+                <img class="img-fluid rounded mb-4" loading="lazy" src="./assets/DogWalkPlusLogo.png" width="245" height="80" alt="doctorApp">
+              </a>
               <hr class="border-primary-subtle mb-4">
               <p class="text-black font-weight-bold">Descubre el arte del cuidado canino con nuestro servicio confiable y
                 eficaz, diseñado para poner el bienestar de tu mascota en el centro de todo lo que hacemos
@@ -18,7 +20,8 @@
             <div class="row">
               <div class="col-12">
                 <div class="mb-5">
-                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Iniciar Sesión</h2>                </div>
+                  <h2 class="badge text-black font-weight-bold" style="font-size: 2em;">Iniciar Sesión</h2>
+                </div>
               </div>
             </div>
             <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
@@ -47,6 +50,7 @@
                     <button class="btn bsb-btn-xl" type="submit" [disabled]="formLogin.invalid" style="background-color: orange; color: black; font-weight: bold;">
                       Iniciar Sesion
                     </button>
+                    <a href="/recuperar" class="forgot-password-link">¿Has olvidado tu contraseña?</a>
                   </div>
                   <div class="or-container">
                     <div class="line-separator"></div>
