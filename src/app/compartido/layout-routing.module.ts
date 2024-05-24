@@ -13,6 +13,12 @@ import { DudaComponent } from './duda/duda.component';
 import { ListadoUsuarioComponent } from '../usuario/listado-usuario/listado-usuario.component';
 import { HorarioComponent } from './horario/horario.component';
 import { RecuperarComponent } from '../usuario/recuperar/recuperar.component';
+import { RrssComponent } from './rrss/rrss.component';
+import { BlogComponent } from './blog/blog.component';
+import { PerfilComponent } from '../usuario/perfil/perfil.component';
+import { PrecioComponent } from './precio/precio.component';
+import { authGuard } from '../_guards/auth.guard';
+
 
 
 const routes: Routes = [
@@ -26,8 +32,12 @@ const routes: Routes = [
       { path: 'duda', component: DudaComponent, pathMatch: 'full'},
       { path: 'contacto', component: ContactoComponent, pathMatch: 'full'},
       { path: 'modal-usuario', component: ModalUsuarioComponent},
+      { path: 'perfil', component: PerfilComponent, canActivate: [authGuard]},
       { path: 'listado-usuario', component: ListadoUsuarioComponent},
       { path: 'horario', component: HorarioComponent},
+      { path: 'rrss', component: RrssComponent},
+      { path: 'blog', component: BlogComponent},
+      { path: 'precio', component: PrecioComponent},
       { path: 'recuperar', component: RecuperarComponent},
       { path: '**', redirectTo: '', pathMatch: 'full'}
     ]

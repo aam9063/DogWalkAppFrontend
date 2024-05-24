@@ -38,6 +38,7 @@ export class LayoutComponent implements OnInit {
 
   cerrarSesion(): void {
     this.compartidoService.eliminarSesion();
+    alert('Adiós');
     this.router.navigate(['/layout']);
     this.estaLoggeado = false;
     this.email = '';

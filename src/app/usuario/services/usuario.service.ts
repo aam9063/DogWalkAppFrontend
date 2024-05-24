@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -32,10 +32,9 @@ export class UsuarioService {
   }
 
   registrar(request: Registro): Observable<SesionUsuario> {
-    console.log(request);
-    return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request);
+    console.log('Solicitud de registro:', request);
+    return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request)
   }
-
 
 
   obtenerUsuarios(): Observable<Usuario[]> {
@@ -53,9 +52,16 @@ export class UsuarioService {
   */
 
   enviarEmail(email: string) {
+    console.log('Enviando email:', email);
     const datos: Recuperar = {
       email: email ?? ''
     };
-    return this.http.post(`${this.baseUrl}recuperar-contrasenya`, datos);
+    return this.http.post(`${this.baseUrl}recuperar-contrasenya`, datos).pipe(
+      tap(_ => console.log('Respuesta del servidor:', _)),
+      catchError(error => {
+        console.error('Error al enviar el email:', error);
+        throw error;
+      })
+    );
   }
 }

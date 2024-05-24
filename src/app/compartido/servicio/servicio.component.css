@@ -3,3 +3,30 @@ mat-list-item.benefit-container {
 }
 
 
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  /* Aquí puedes agregar más estilos para pantallas pequeñas */
+}
+
+/* Estilos para pantallas medianas (entre 600px y 1200px) */
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  body {
+    font-size: 16px;
+  }
+
+  /* Aquí puedes agregar más estilos para pantallas medianas */
+}
+
+/* Estilos para pantallas grandes (más de 1200px) */
+
+@media screen and (min-width: 1200px) {
+  body {
+    font-size: 18px;
+  }
+
+  /* Aquí puedes agregar más estilos para pantallas grandes */
+}

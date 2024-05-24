@@ -1,0 +1,38 @@
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+
+<mat-card class="card" *ngFor="let perro of perros; let i = index" [hidden]="i !== currentIndex">
+  <div class="card-details" fxHide.xs="100px">
+    <div class="image-container">
+      <img [src]="'assets/dog' + (i+1) + '.jpg'" class="circular-image">
+    </div>
+    <div class="info-container" fxHide.xs="100px">
+      <p class="text-title">{{perro.nombre}}</p>
+      <p class="text-body">{{perro.raza}}</p>
+      <p class="text-body">{{perro.edad}}</p>
+      <p class="text-body">{{perro.nombreUsuario}}</p>
+    </div>
+    <div class="social-icons" fxHide.xs="100px">
+      <div class="social-icons">
+        <a [href]="perro.instagram">
+          <img src="assets/instagram.png">
+        </a>
+        <a [href]="perro.tiktok">
+          <img src="assets/tiktok.png">
+        </a>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<div class="navigation-buttons">
+  <button mat-icon-button (click)="previousCard()">
+    <mat-icon style="color: orangered;">arrow_back</mat-icon>
+  </button>
+
+  <button mat-icon-button (click)="nextCard()">
+    <mat-icon style="color: orangered;">arrow_forward</mat-icon>
+  </button>
+</div>

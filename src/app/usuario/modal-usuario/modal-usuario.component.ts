@@ -46,6 +46,7 @@ export class ModalUsuarioComponent {
       this.usuarioServicio.registrar(this.formRegistro.value).subscribe({
         next: (response: SesionUsuario) => {
           console.log('Usuario registrado con éxito', response);
+          alert('Usuario registrado con éxito');
           this.router.navigate(['/layout']);
         },
         error: error => {

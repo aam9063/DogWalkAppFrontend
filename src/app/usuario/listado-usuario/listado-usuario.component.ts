@@ -43,14 +43,7 @@ export class ListadoUsuarioComponent implements OnInit, AfterViewInit{
     );
   }
 
-  nuevoUsuario() {
-    this.dialog
-      .open(ModalUsuarioComponent, {disableClose: false, width: '100%', height: '100%'})
-      .afterClosed()
-      .subscribe((resultado) => {
-        if (resultado === 'true') this.obtenerUsuarios();
-      })
-  }
+
 
   aplicarFiltroListado(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

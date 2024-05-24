@@ -4,9 +4,14 @@ import { SesionUsuario } from '../usuario/Interfaces/sesion'
 import { SesionPaseador } from '../paseador/interfaces/sesion-paseador';
 import { Registro } from '../usuario/Interfaces/registro';
 import { Opinion } from './interfaces/opinion';
+import { Perro } from './interfaces/perro';
 import { HttpClient } from '@angular/common/http';
 import { enviroment } from 'src/enviroments/enviroment';
 import { Observable } from 'rxjs';
+import { Paseador } from './interfaces/paseador';
+import { Servicio } from './interfaces/servicio';
+import { Horario } from './interfaces/horario';
+import { Precio } from './interfaces/precio';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +19,39 @@ import { Observable } from 'rxjs';
 export class CompartidoService {
 
   baseUrl: string = enviroment.apiUrl + 'Ranking/';
+  baseUrl2: string = enviroment.apiUrl + 'Perro/';
+  baseUrl3: string = enviroment.apiUrl + 'Paseador/';
+  baseUrl4: string = enviroment.apiUrl + 'Servicio/';
+  baseUrl5: string = enviroment.apiUrl + 'Horario/';
+  baseUrl6: string = enviroment.apiUrl + 'Precio/';
 
 
   constructor(private _snackBar: MatSnackBar,
               private http: HttpClient
   ) { }
 
+  obtenerPaseadores(): Observable<Paseador[]> {
+    return this.http.get<Paseador[]>(`${this.baseUrl3}paseadores`);
+  }
+
+  obtenerServicios(): Observable<Servicio[]> {
+    return this.http.get<Servicio[]>(`${this.baseUrl4}servicios`);
+  }
+
+  obtenerHorarios(): Observable<Horario[]> {
+    return this.http.get<Horario[]>(`${this.baseUrl5}horarios`);
+  }
+
+  obtenerPerros(): Observable<Perro[]> {
+    return this.http.get<Perro[]>(`${this.baseUrl2}perrosdto`);
+  }
+
   obtenerRankings(): Observable<Opinion[]> {
     return this.http.get<Opinion[]>(`${this.baseUrl}rankings`);
+  }
+
+  obtenerPrecios(): Observable<Precio[]> {
+    return this.http.get<Precio[]>(`${this.baseUrl6}precios`);
   }
 
   mostrarAlerta(mensaje: string, tipo: string){

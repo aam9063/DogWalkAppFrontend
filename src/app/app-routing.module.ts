@@ -8,6 +8,10 @@ import { ModalUsuarioComponent } from './usuario/modal-usuario/modal-usuario.com
 import { ListadoUsuarioComponent } from './usuario/listado-usuario/listado-usuario.component';
 import { HorarioComponent } from './compartido/horario/horario.component';
 import { RecuperarComponent } from './usuario/recuperar/recuperar.component';
+import { RrssComponent } from './compartido/rrss/rrss.component';
+import { BlogComponent } from './compartido/blog/blog.component';
+import { PerfilComponent } from './usuario/perfil/perfil.component';
+import { PrecioComponent } from './compartido/precio/precio.component';
 
 const routes: Routes = [
   {
@@ -38,6 +42,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'perfil',
+    component: PerfilComponent,
+    pathMatch: 'full',
+  },
+  {
     path: '',
     component: ListadoUsuarioComponent,
     pathMatch: 'full',
@@ -45,6 +54,21 @@ const routes: Routes = [
   {
     path: '',
     component: HorarioComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: RrssComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: BlogComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'precio',
+    component: PrecioComponent,
     pathMatch: 'full',
   },
   {

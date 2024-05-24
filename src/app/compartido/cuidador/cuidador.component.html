@@ -15,14 +15,49 @@
       </button>
     </mat-card-content>
   </mat-card>
-  <mat-card style="display: flex; justify-content: center; align-items: center; font-size: large; font-weight: bold; width: 100%; height: 400px;">
-    <div style="text-align: center; padding: 20px; flex: 1; border-right: 1px solid #000;">
-      ¿Cómo Funciona DogWalkApp?
+  <mat-card style="font-size: large; font-weight: bold; width: 100%; height: 400px;">
+    <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile>
+        <div style="text-align: left; margin-top: 30px; margin-bottom: 10px; padding: 10px;">
+          <div>
+            <h1 style="font-weight: bold; color:chocolate">¿Cómo Funciona DogWalkApp?</h1>
+            <p>
+              <mat-icon style="color: orangered;">star</mat-icon>
+              Marca tus propios precios y disponibilidad
+            </p>
+            <p>
+              <mat-icon style="color: orangered;">pets</mat-icon>
+              Cuida de perros que cumplen con tus preferencias
+            </p>
+            <p>
+              <mat-icon style="color: orangered;">local_hospital</mat-icon>
+              Cobertura Veterinaria en cada reserva
+            </p>
+          </div>
+
+
         </div>
-    <div style="flex: 1;">
-      <!-- Aquí puedes agregar más contenido -->
-      ¿Cómo Funciona DogWalkApp?
-    </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div style="text-align: left; margin-top: 30px; margin-bottom: 10px; padding: 10px;">
+          <div>
+            <h1 style="font-weight: bold; color:chocolate">Servicios</h1>
+            <p>
+              <img src="./assets/Country House.png" alt="Icono de alojamiento" height="24px" style="color: orangered;">
+              Alojamiento
+            </p>
+            <p>
+              <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" height="24px">
+              Paseo de perros
+            </p>
+            <p>
+              <img src="./assets/Suitcase.png" alt="Icono de guardería de día" height="24px">
+              Guardería de día
+            </p>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
   </mat-card>
 </div>
 
@@ -31,41 +66,38 @@
   <mat-grid-tile [ngStyle]="{'background-color': '#ff7f50'}">
     <div style="color: white; padding: 40px;">
       <h2>Garantía</h2>
-      <p>
+      <p><mat-icon>check</mat-icon>
         Cada reserva a través de Gudog incluye cobertura veterinaria en caso de accidente
 
       </p>
-      <p>
+      <p><mat-icon>check</mat-icon>
         Pagos online, seguros y fáciles
       </p>
-      <p>
+      <p><mat-icon>check</mat-icon>
         Soporte y ayuda en todo momento
       </p>
-      <p>
+      <p><mat-icon>check</mat-icon>
         ¡Gana un extra mientras cuidas de perros maravillosos!
 
       </p>
     </div>
   </mat-grid-tile>
-  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/corgi-4415649_640.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
-  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/beagle-5375286_640.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
-  <mat-grid-tile [ngStyle]="{'background-color': 'white', 'color': 'black'}">
-    <div style="color: black; padding: 20px;">
-      <h2>Guardería de día</h2>
-      <p>
-        El servicio de guardería es durante el día, generalmente desde la mañana entre las 8 y las 9, hasta la tarde entre las 15 y las 17, pero también puede ser más corto o en otro horario. El cuidador se asegurará de que el perro esté cómodo y reciba paseos, juegos y cuidado. Debes traer comida para tu perro si necesita ser alimentado mientras se le ofrece el cuidado. Precio de la guardería desde 10€ por día.
-      </p>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile [ngStyle]="{'background-color': '#ff7f50'}">
-    <div style="color: white; padding: 40px;">
-      <h2>Paseo de perros</h2>
-      <p>
-        ¿No puedes pasear a tu perro tan a menudo como te gustaría? ¡Encuentra un paseador de perros que lo saque a pasear tanto y tan lejos como sea necesario! Ofrecemos paseos de 30 a 60 minutos para tu perro, que incluyen cobertura veterinaria, así como servicio de recogida y entrega en tu hogar.      </p>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/golden-retriever-4135265_1280.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+  <mat-grid-tile [ngStyle]="{'background-image': 'url(../../assets/puppy-2785074_640.jpg)', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></mat-grid-tile>
+
 </mat-grid-list>
+
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mat-card style="background-color: white; width: 100%; height: 300px;">
+    <mat-card-content style="text-align: center; font-size: 40px;">
+      <h1 style="font-size: 1em; font-weight: bold; margin-bottom: 100px; margin-top: 40px; color: black;">
+        Una vez tu perfil sea aprobado, cientos de dueños/as de perros podrán ponerse en contacto contigo
+      </h1>
+       <button mat-raised-button color="warn" routerLink="/modal-usuario" style="background-color: '#ff7f50'; color: white; font-size: large; width: 450px;">
+        Hazte cuidador de perros
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
 
 <div fxLayout="column" fxLayoutAlign="start center">
   <mat-card style="width: 100%; height: 100%; background-color: #43bccd; color: white;">

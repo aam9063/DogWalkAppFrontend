@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsuarioModule } from './usuario/usuario.module';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -21,7 +24,9 @@ import { GoogleMapsModule } from '@angular/google-maps';
     HttpClientModule,
     BrowserAnimationsModule,
     UsuarioModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    FlexLayoutModule,
+    ReactiveFormsModule
 
   ],
   providers: [],

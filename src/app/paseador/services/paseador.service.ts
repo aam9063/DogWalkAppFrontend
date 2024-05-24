@@ -12,12 +12,12 @@ import { ApiResponse } from 'src/app/interfaces/api-response';
 })
 export class PaseadorService {
 
-  baseUrl: string = enviroment.apiUrl + 'Paseador/';
+  baseUrl2: string = enviroment.apiUrl + 'Paseador/';
 
   constructor(private http: HttpClient) { }
 
   iniciarSesionPaseador(request: LoginPaseador): Observable<SesionPaseador> {
-    return this.http.post<SesionPaseador>(`${this.baseUrl}login_paseadores`, request).pipe(
+    return this.http.post<SesionPaseador>(`${this.baseUrl2}login_paseadores`, request).pipe(
       tap(response => {
         // Almacena el token en localStorage
         localStorage.setItem('tokenPaseador', response.tokenPaseador);
@@ -26,19 +26,23 @@ export class PaseadorService {
   }
 
   lista(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${this.baseUrl}paseadores/nombres`);
+    return this.http.get<ApiResponse>(`${this.baseUrl2}paseadores/nombres`);
   }
 
   getNombres(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}paseadores/nombres`);
+    return this.http.get<any[]>(`${this.baseUrl2}paseadores/nombres`);
   }
 
   getUbicaciones(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}paseadores/ubicaciones`);
+    return this.http.get<any[]>(`${this.baseUrl2}paseadores/ubicaciones`);
   }
 
   obtenerPaseadores(): Observable<any> {
-    return this.http.get(`${this.baseUrl}paseadores`);
+    return this.http.get(`${this.baseUrl2}paseadores`);
   }
+
+  obtenerPreciosPaseadores(): Observable<any> {
+    return this.http.get(`${this.baseUrl2}paseadores_precios`);
+}
 
 }

@@ -1,0 +1,199 @@
+.desplazado-derecha {
+  margin-left: 250px;
+}
+
+.titulo-destacado {
+  font-size: 2em; /* Ajusta este valor según tus necesidades */
+  color: #000;
+}
+
+.card-espaciada {
+  margin-left: 0px; /* Ajusta este valor según tus necesidades */
+  margin-right: 20px; /* Ajusta este valor según tus necesidades */
+}
+
+.frases-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px; /* Ajusta este valor según tus necesidades */
+}
+
+.frase {
+  text-align: center;
+}
+
+.contenedor-de-tarjetas {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Ajusta este valor para cambiar la separación entre las tarjetas */
+}
+
+.card-con-lista {
+  flex: 1;
+  max-width: calc(50% - 10px); /* Ajusta este valor para cambiar el ancho máximo de la tarjeta de la lista */
+}
+
+.card-con-mapa {
+  flex: 1;
+  max-width: calc(50% - 10px); /* Ajusta este valor para cambiar el ancho máximo de la tarjeta del mapa */
+}
+
+.card-con-mapa google-map {
+  width: 100%; /* Esto hará que el mapa tenga el mismo ancho que la tarjeta */
+  height: 100%; /* Esto hará que el mapa tenga la misma altura que la tarjeta */
+}
+
+mat-form-field:first-child {
+  margin-top: 20px; /* Ajusta este valor según la cantidad de espacio que quieras entre el toolbar y los campos */
+}
+
+.nombre {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.divider-espaciado {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+
+.container {
+  display: flex; /* Alinea las tarjetas horizontalmente */
+  justify-content: space-around; /* Distribuye las tarjetas uniformemente en el contenedor */
+  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea si no hay suficiente espacio */
+}
+
+.card {
+  width: 80%; /* Ajusta el ancho de la tarjeta para que se ajuste a su contenedor */
+  color: #fff;
+  height: 80%; /* Permite que la tarjeta se expanda para acomodar su contenido */
+  border-radius: 20px;
+  background: #ee964b;
+  position: center;
+  padding: 1.8rem;
+  border: 2px solid #c3c6ce;
+  transition: transform 0.3s;
+  overflow: visible;
+  margin: 10px auto; /* Añade un margen alrededor de cada tarjeta para darle más espacio */
+  display: flex;
+  justify-content: center;
+}
+
+.card-details {
+  color: #fff;
+  height: 100%;
+  gap: .5em;
+  display: grid;
+  place-content: center;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+.card-button {
+  transform: translate(-50%, 125%);
+  width: 60%;
+}
+
+.card .text-body {
+  color: #fff !important;
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
+  line-height: 1.5; /* Aumenta el espacio entre las líneas */
+  letter-spacing: 0.05em; /* Aumenta el espacio entre las letras */
+}
+
+.text-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
+  letter-spacing: 0.1em; /* Aumenta el espacio entre las letras */
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+}
+
+ /*Hover*/
+ .card:hover {
+  border-color: black;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+ }
+
+ .card:hover .card-button {
+
+  opacity: 1;
+ }
+
+ .image-container .circular-image {
+  width: 500px; /* Ajusta el valor según tus necesidades */
+  height: 500px; /* Ajusta el valor según tus necesidades */
+  border-radius: 0;
+}
+
+.stars {
+  color: gold;
+  font-size: 1em;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-style: bold;
+}
+
+.circular-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: 10px; /* Espacio en la parte superior de la imagen */
+}
+
+.info-container {
+  flex: 2;
+  padding-left: 10px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: space-around; /* Distribuye el espacio alrededor de los iconos */
+}
+
+.custom-button {
+  background-color: orangered;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  /* Aquí puedes agregar más estilos para pantallas pequeñas */
+}
+
+/* Estilos para pantallas medianas (entre 600px y 1200px) */
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  body {
+    font-size: 16px;
+  }
+
+  /* Aquí puedes agregar más estilos para pantallas medianas */
+}
+
+/* Estilos para pantallas grandes (más de 1200px) */
+
+@media screen and (min-width: 1200px) {
+  body {
+    font-size: 18px;
+  }
+
+  /* Aquí puedes agregar más estilos para pantallas grandes */
+}

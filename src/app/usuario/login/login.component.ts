@@ -41,6 +41,7 @@ export class LoginComponent {
     this.usuarioServicio.iniciarSesion(request).subscribe({
       next: (response) => {
         this.compartidoServicio.guardarSesion(response);
+        alert('Bienvenido')
         this.router.navigate(['layout']);
 
       },

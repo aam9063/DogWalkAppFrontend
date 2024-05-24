@@ -7,6 +7,7 @@ import { ModalUsuarioComponent } from './modal-usuario/modal-usuario.component';
 import { ListadoUsuarioComponent } from './listado-usuario/listado-usuario.component';
 import { RecuperarComponent } from './recuperar/recuperar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     ModalUsuarioComponent,
     ListadoUsuarioComponent,
-    RecuperarComponent
+    RecuperarComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule, CompartidoModule, FormsModule, ReactiveFormsModule

@@ -15,7 +15,7 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <div style="margin-left: 50px;">
+    <div style="margin-left: 50px;" fxHide.xs="100px">
       <button mat-button routerLink="/layout/dashboard">
         <mat-icon style="color: orangered;">search</mat-icon>
         Busca Cuidador
@@ -40,6 +40,14 @@
         <mat-icon style="color: orangered;">phone</mat-icon>
         Contacto
       </button>
+      <button mat-button routerLink="/layout/rrss">
+        <mat-icon style="color: orangered;">photo_library</mat-icon>
+        RRSS de los Perros
+      </button>
+      <button mat-button routerLink="/layout/blog">
+        <mat-icon style="color: orangered;">rss_feed</mat-icon>
+        Blog
+      </button>
     </div>
   </div>
 
@@ -51,38 +59,159 @@
     </button>
     <span *ngIf="!estaLoggeado">
       <button mat-icon-button routerLink="/login">
-        <mat-icon>login</mat-icon>
+        <mat-icon style="color: orangered;">login</mat-icon>
       </button>
       <button mat-icon-button routerLink="/modal-usuario">
-        <mat-icon>person_add</mat-icon>
+        <mat-icon style="color: orangered;">person_add</mat-icon>
       </button>
     </span>
 
     <button mat-icon-button *ngIf="estaLoggeado" (click)="cerrarSesion();">
-      <mat-icon>logout</mat-icon>
+      <mat-icon style="color: orangered;">logout</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav class="sidenav" style="width: 220px" mode="side" opened="true" color="inherit">
+  <mat-sidenav #sidenav class="sidenav" style="width: 100px;" mode="side" opened="true" color="inherit">
     <mat-nav-list>
-      <a mat-list-item routerLink="/layout/listado-usuario" >Usuarios</a>
-       <a mat-list-item routerLink="/layout/dashboard">Cuidadores</a>
-      <a mat-list-item routerLink="/layout/horario">Horarios y Reservas</a>
-      <a mat-list-item routerLink="/recurso3">Fotos</a>
-      <a mat-list-item routerLink="/recurso3">Blog</a>
+      <a mat-list-item routerLink="/layout/listado-usuario" style="font-weight: bold;" >
+        <mat-icon style="color: orangered;">person</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/dashboard">
+        <mat-icon style="color: orangered;">search</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/servicio">
+        <mat-icon style="color: orangered;">category</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/cuidador">
+        <mat-icon style="color: orangered;">group_add</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/opinion">
+        <mat-icon style="color: orangered;">reviews</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/horario">
+        <mat-icon style="color: orangered;">schedule</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/rrss">
+        <mat-icon style="color: orangered;">photo_library</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/blog" style="font-weight: bold;">
+        <mat-icon style="color: orangered;">rss_feed</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/contacto">
+        <mat-icon style="color: orangered;">phone</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/layout/precio">
+        <mat-icon style="color: orangered;">attach_money</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/login" style="font-weight: bold;">
+        <mat-icon style="color: orangered;">login</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/modal-usuario" style="font-weight: bold;">
+        <mat-icon style="color: orangered;">person_add</mat-icon>
+      </a>
       <!-- Agrega más enlaces aquí según sea necesario -->
     </mat-nav-list>
   </mat-sidenav>
 
+  <div class="layout-background">
+
+  </div>
+
   <mat-sidenav-content>
     <div class="layout-background">
       <router-outlet></router-outlet>
+      <div>
+        <mat-card class="mi-card">
+          <div style="margin-top: 30px;">
+            <h1 style="font-size: 2.5em; font-weight: bold;">
+              Encuentra al Cuidador de Perros Perfecto
+            </h1>
+            <h2>¿Qué servicio necesitas?</h2>
+            <div class="card-container">
+              <mat-card class="small-card">
+                <img src="./assets/Suitcase.png" alt="Icono de guardería de día" class="card-image">
+                <h2 style="font-weight: bold; text-align: center;">Alojamiento</h2>
+                <p style="text-align: center; font-size: medium;">Tu perro pasa la noche en casa del cuidador</p>
+              </mat-card>
+              <mat-card class="small-card">
+                <img src="./assets/huellas-de-garras.png" alt="Icono de paseo largo" class="card-image">
+                <h2 style="font-weight: bold; text-align: center;">Paseo</h2>
+                <p style="text-align: center; font-size: medium;">Un paseo para tu perro, siempre con correa</p>
+              </mat-card>
+              <mat-card class="small-card">
+                <img src="./assets/Country House.png" alt="Icono de alojamiento" class="card-image">
+                <h2 style="font-weight: bold; text-align: center;">Guardería de día</h2>
+                <p style="text-align: center; font-size: medium;">Tu perro se quedará en casa del cuidador durante el día</p><br>
+              </mat-card>
+            </div>
+            <div class="button2">
+              <button class="mi-boton" mat-raised-button color="warn" routerLink="/layout/dashboard">
+                Buscar
+              </button>
+            </div>
+            <div class="stars2">
+              ★★★★★
+            </div>
+            <div>
+              <h4 class="h4" style="font-weight: bold; text-align: center;">
+                Opiniones de +300.000 familias de perros
+              </h4>
+            </div>
+
+          </div>
+        </mat-card>
+      </div>
+      <div >
+        <mat-card class="app">
+          <mat-grid-list cols="2" rowHeight="1:1">
+            <mat-grid-tile>
+              <img class="iphone;" src="./assets/Imagen1.png" alt="Descripción de la imagen">
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div style="color: #f8f9fa;">
+                <div >
+                  <h1 style="font-size: 2em; font-weight: bold;">
+                    Descarga la Aplicación Dog Walk App
+                  </h1><br>
+                </div>
+                <div>
+                  <mat-icon style="color: whitesmoke;">search</mat-icon>
+                  <p class="white-text" style="font-size: 1.5em;">Descarga la aplicación Gudog en Apple App Store o Google Play Store</p><br>
+                </div>
+                <div>
+                  <mat-icon style="color: whitesmoke;">favorite</mat-icon>
+                  <p class="white-text" style="font-size: 1.5em;">Busca miles de cuidadores de perros cerca de ti, dispuestos a cuidar de tu perro como si fuera de su familia</p><br>
+                </div>
+                <div>
+                  <mat-icon style="color: whitesmoke;">message</mat-icon>
+                  <p class="white-text" style="font-size: 1.5em;">Envía un mensaje al cuidador perfecto para tu perro, luego reserva y paga de forma segura a través de la aplicación</p><br>
+                </div>
+                <div>
+                  <mat-icon style="color: whitesmoke;">photo_camera</mat-icon>
+                  <p class="white-text" style="font-size: 1.5em;">Tu perro se divertirá y estará en familia y tú recibirás fotografías regularmente</p>
+                </div>
+                <div class="button-container">
+                  <a href="https://play.google.com" class="button google-play">
+                    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png" alt="Google Play">
+                  </a><br>
+                  <a href="https://www.apple.com/app-store/" class="button app-store">
+                    <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred_2x.png" alt="App Store">
+
+                </a>
+
+                </div>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-card>
+
+      </div>
 
     </div>
   </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-sidenav-container>
 
 
 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px;">
@@ -145,7 +274,7 @@
           <div class="card">
             <div class="card-details">
               <div class="image-container">
-                <img src="/assets/Account.ico" alt="Cuidador" />
+                <img src="/assets/user1.jpg" alt="Cuidador" />
               </div>
               <p class="text-title">Antonio</p>
               <div class="stars">
@@ -157,7 +286,7 @@
           <div class="card">
             <div class="card-details">
               <div class="image-container">
-                <img src="/assets/Account.ico" alt="Cuidador" />
+                <img src="/assets/user2.jpg" alt="Cuidador" />
               </div>
               <p class="text-title">Miguel</p>
               <div class="stars">
@@ -169,7 +298,7 @@
           <div class="card">
             <div class="card-details">
               <div class="image-container">
-                <img src="/assets/Account.ico" alt="Cuidador" />
+                <img src="/assets/user5.jpg" alt="Cuidador" />
               </div>
               <p class="text-title">Patricia</p>
               <div class="stars">
@@ -191,11 +320,15 @@
 
   <div>
     <h4 style="font-weight: bold;">Sobre nosotros</h4>
+    <a routerLink="/layout/cuidador" (click)="scrollToTop()" style="text-decoration: none; color: inherit;">¿Cómo funciona?</a><br>
+    <a routerLink="/layout/opinion" (click)="scrollToTop()" style="text-decoration: none; color: inherit;">Opiniones</a><br>
+    <a routerLink="/layout/servicio" (click)="scrollToTop()" style="text-decoration: none; color: inherit;">Servicios</a><br>
+
   </div>
   <div>
     <h4 style="font-weight: bold;">Enlaces útiles</h4>
-    <a routerLink="/faq" style="text-decoration: none; color: inherit; font-weight: bold;">FAQ</a><br>
-    <a routerLink="/contact" style="text-decoration: none; color: inherit; font-weight: bold;">Contacto</a>
+    <a routerLink="/layout/duda" (click)="scrollToTop()" style="text-decoration: none; color: inherit; ">¿Dudas?</a><br>
+    <a routerLink="/layout/contacto" (click)="scrollToTop()" style="text-decoration: none; color: inherit; ">Contacto</a>
   </div>
   <div>
     <h4 style="font-weight: bold;">Contacto</h4>
@@ -214,11 +347,21 @@
       <img src="/assets/Instagram.ico" alt="Instagram logo" style="width: 24px; height: 24px;"> Instagram
     </a>
     </div>
+  <div>
+    <h4 style="font-weight: bold;">Mi GitHub</h4>
+    <a href="https://github.com/aam9063/DogWalkAppFrontend" target="_blank" style="text-decoration: none; color: inherit;">
+      <img src="/assets/github.png" alt="GitHub logo" style="width: 24px; height: 24px;">Source Code Angular
+    </a><br>
+    <a href="https://github.com/aam9063/DogWalkApp" target="_blank" style="text-decoration: none; color: inherit;">
+      <img src="/assets/github.png" alt="GitHub logo" style="width: 24px; height: 24px;">Source Code Backend
+    </a>
+  </div>
   <mat-divider class="divider-espaciado"></mat-divider>
+
   <div>
     <a routerLink="/layout" style="text-decoration: none; color: inherit;">
       <img src="/assets/DogPaw.ico" alt="Huella de perro" style="width: 24px; height: 24px;">
-      <span>Dog Walk App  © 2024</span>
+      <span>Dog Walk App By Albert Alarcón  © 2024</span>
     </a>
   </div>
 </div>

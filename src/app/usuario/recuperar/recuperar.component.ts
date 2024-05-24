@@ -19,6 +19,7 @@ export class RecuperarComponent {
 
   enviarEmail() {
     const email = this.formRecuperar.value.email;
+    console.log('Email del formulario:', email);
     if (email) { // Comprueba que email no es null ni undefined
       this.usuarioService.enviarEmail(email).subscribe(
         _ => {

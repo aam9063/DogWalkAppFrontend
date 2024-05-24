@@ -13,6 +13,9 @@ import { OpinionComponent } from './opinion/opinion.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { DudaComponent } from './duda/duda.component';
 import { HorarioComponent } from './horario/horario.component';
+import { RrssComponent } from './rrss/rrss.component';
+import { BlogComponent } from './blog/blog.component';
+import { PrecioComponent } from './precio/precio.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +27,18 @@ import { HorarioComponent } from './horario/horario.component';
     ContactoComponent,
     DudaComponent,
     HorarioComponent,
+    RrssComponent,
+    BlogComponent,
+    PrecioComponent,
   ],
   imports: [
-    CommonModule, MaterialModule, LayoutRoutingModule, GoogleMapsModule
+    CommonModule,
+    MaterialModule,
+    LayoutRoutingModule,
+    GoogleMapsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     ReactiveFormsModule,

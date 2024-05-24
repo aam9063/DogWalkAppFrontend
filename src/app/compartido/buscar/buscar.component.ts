@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
 import { CompartidoService } from '../compartido.service';
-import { Observable, of } from 'rxjs';
+import { forkJoin, Observable, of, zip } from 'rxjs';
 import { PaseadorService } from 'src/app/paseador/services/paseador.service';
 import { ApiResponse } from 'src/app/interfaces/api-response';
-
+import { MapInfoWindow } from '@angular/google-maps';
 
 interface Marker {
   lat: number;
@@ -18,7 +18,10 @@ interface Paseador{
   nombre: string;
   email: string;
   telefonoPaseador: string;
+  precio: number;
 }
+
+
 
 @Component({
   selector: 'app-buscar',
@@ -35,15 +38,15 @@ export class BuscarComponent implements OnInit {
   markers: Marker[] = []; // Añadido
   sliderValue = 1;
   currentIndex = 0;
+  showPopup = false;
+  @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
 
   constructor(private router: Router, private compartidoService: CompartidoService, private paseadorService: PaseadorService) { }
 
   ngOnInit() {
     this.obtenerPaseadores()
-    this.obtenerPaseador()
-
-
-  }
+    this.obtenerPaseador();
+}
 
   obtenerPaseadores() {
     this.paseadorService.lista().pipe(
@@ -85,6 +88,7 @@ export class BuscarComponent implements OnInit {
 
   onMarkerClick(marker: any) {
     this.selectedMarker = marker.nombre;
+    this.infoWindow.open(marker);
   }
 
   buscarUbicaciones() {
@@ -93,6 +97,12 @@ export class BuscarComponent implements OnInit {
 
   obtenerPaseador() {
     this.paseadorService.obtenerPaseadores().subscribe(paseadores => {
+      this.paseadores = paseadores;
+    });
+  }
+
+  obtenerPreciosPaseadores() {
+    this.paseadorService.obtenerPreciosPaseadores().subscribe(paseadores => {
       this.paseadores = paseadores;
     });
   }

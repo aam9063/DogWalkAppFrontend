@@ -1,9 +1,7 @@
-
-
 .layout-background {
   position: relative;
-  width: 100%;
-  height: 100vh;
+  width: 20%;
+  height: 50%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -16,8 +14,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: calc(120% - 200px); /* Ajusta este valor según el ancho de tu sidenav */
-  height: 100%;
+  width: 50%; /* Ajusta este valor según el ancho de tu sidenav */
+  height: 50%;
   background-image: url('../../../assets/1.jpg'), url('../../../assets/2.jpg'), url('../../../assets/3.jpg'), url('../../../assets/4.jpg');
   background-position: center;
   background-repeat: no-repeat;
@@ -123,3 +121,403 @@
   color: gold;
   font-size: 1em;
 }
+
+.mi-card {
+  width: 50%; /* Ajusta el ancho de la tarjeta para que se ajuste a su contenedor */
+  height: auto; /* Permite que la tarjeta se expanda para acomodar su contenido */
+  border-radius: 20px;
+  background: #f5f5f5;
+  position: relative;
+  padding: 1.8rem;
+  overflow: visible;
+  margin-left: 500px; /* Añade un margen alrededor de cada tarjeta para darle más espacio */
+  margin-top: 5px;
+
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Ajusta la separación entre las tarjetas */
+}
+
+.small-card {
+  flex: 1;
+  width: 30%;
+  height: auto;
+  border-radius: 20px;
+  background: #fffefe;
+  position: relative;
+  padding: 1.8rem;
+  border: 2px solid #c3c6ce;
+  overflow: visible;
+  transition: background 0.3s ease, color 0.3s ease; /* Añade una transición suave al cambio de color de fondo y de texto */
+  color: black; /* Define el color de texto inicial */
+}
+
+.small-card:hover {
+  background: rgb(3, 119, 104); /* Cambia el color de fondo a verde cuando pasas el ratón por encima */
+  color: white; /* Cambia el color de texto a blanco cuando pasas el ratón por encima */
+}
+
+.card-image {
+  width: 20%; /* Ajusta el ancho de la imagen para que se ajuste a la tarjeta */
+  height: auto; /* Permite que la imagen se expanda para acomodar su contenido */
+  justify-content: center;
+  align-items: center;
+  position: center;
+  margin-left: 70px;
+}
+
+.button2 {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px; /* Añade un poco de separación por encima del botón */
+}
+
+.mi-boton {
+  background-color: #ff7f50;
+  color: white;
+  font-size: large;
+  width: 350px;
+}
+
+.stars2 {
+  display: flex;
+  color: gold;
+  font-size: 2em;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.h4 {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.app {
+  background-color: rgba(230, 64, 4, 0.973);
+}
+
+.iphone {
+  width: 10px; /* Reducir el ancho */
+  height: 10px; /* Reducir la altura */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.button img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .layout-background {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+
+
+  .layout-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(120% - 200px); /* Ajusta este valor según el ancho de tu sidenav */
+    height: 100%;
+    background-image: url('../../../assets/1.jpg'), url('../../../assets/2.jpg'), url('../../../assets/3.jpg'), url('../../../assets/4.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: carrusel 15s infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes carrusel {
+    0% { background-image: url('../../../assets/1.jpg'); }
+    33% { background-image: url('../../../assets/2.jpg'); }
+    66% { background-image: url('../../../assets/3.jpg'); }
+    100% { background-image: url('../../../assets/4.jpg'); }
+  }
+
+  .layout-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .card-espaciada {
+    margin: 20px; /* Aumenta el margen alrededor de la tarjeta */
+    padding: 20px; /* Añade un padding dentro de la tarjeta */
+  }
+
+  .frases-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en varias líneas si no hay suficiente espacio */
+  }
+
+  .frase {
+    margin: 10px; /* Añade un margen alrededor de cada frase para darle más espacio */
+    width: 200px; /* Ajusta este valor según tus necesidades */
+    text-align: center; /* Centra el texto y la imagen dentro de cada frase */
+  }
+
+
+  .container {
+    display: flex; /* Alinea las tarjetas horizontalmente */
+    justify-content: space-around; /* Distribuye las tarjetas uniformemente en el contenedor */
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea si no hay suficiente espacio */
+  }
+
+  .card {
+    width: 30%; /* Ajusta el ancho de la tarjeta para que se ajuste a su contenedor */
+    height: auto; /* Permite que la tarjeta se expanda para acomodar su contenido */
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    margin: 20px; /* Añade un margen alrededor de cada tarjeta para darle más espacio */
+  }
+
+  .card-details {
+    color: black;
+    height: 100%;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+  }
+
+  .card-button {
+    transform: translate(-50%, 125%);
+    width: 60%;
+  }
+
+   .text-body {
+    color: rgb(134, 134, 134);
+    font-size: 0.5em;
+   }
+
+   /*Text*/
+   .text-title {
+    font-size: 0.5em;
+    font-weight: bold;
+   }
+
+   /*Hover*/
+   .card:hover {
+    border-color: orangered;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+   }
+
+   .card:hover .card-button {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+   }
+
+   .image-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 30%; /* Hace que la imagen sea circular */
+  }
+
+  .stars {
+    color: gold;
+    font-size: 1em;
+  }
+
+
+  /* Aquí puedes agregar más estilos para pantallas pequeñas */
+}
+
+/* Estilos para pantallas medianas (entre 600px y 1200px) */
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+
+  /* Aquí puedes agregar más estilos para pantallas medianas */
+}
+
+/* Estilos para pantallas grandes (más de 1200px) */
+
+@media screen and (min-width: 1200px) {
+  .layout-background {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+
+
+  .layout-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(120% - 200px); /* Ajusta este valor según el ancho de tu sidenav */
+    height: 100%;
+    background-image: url('../../../assets/1.jpg'), url('../../../assets/2.jpg'), url('../../../assets/3.jpg'), url('../../../assets/4.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: carrusel 15s infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes carrusel {
+    0% { background-image: url('../../../assets/1.jpg'); }
+    33% { background-image: url('../../../assets/2.jpg'); }
+    66% { background-image: url('../../../assets/3.jpg'); }
+    100% { background-image: url('../../../assets/4.jpg'); }
+  }
+
+  .buscar_card {
+    width: 100%; /* Ajusta el ancho de la tarjeta para que se ajuste a su contenedor */
+    height: auto; /* Permite que la tarjeta se expanda para acomodar su contenido */
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    overflow: visible;
+    margin-top: 100px; /* Añade un margen alrededor de cada tarjeta para darle más espacio */
+  }
+
+  .layout-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .card-espaciada {
+    margin: 20px; /* Aumenta el margen alrededor de la tarjeta */
+    padding: 20px; /* Añade un padding dentro de la tarjeta */
+  }
+
+  .frases-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en varias líneas si no hay suficiente espacio */
+  }
+
+  .frase {
+    margin: 10px; /* Añade un margen alrededor de cada frase para darle más espacio */
+    width: 200px; /* Ajusta este valor según tus necesidades */
+    text-align: center; /* Centra el texto y la imagen dentro de cada frase */
+  }
+
+
+  .container {
+    display: flex; /* Alinea las tarjetas horizontalmente */
+    justify-content: space-around; /* Distribuye las tarjetas uniformemente en el contenedor */
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea si no hay suficiente espacio */
+  }
+
+  .card {
+    width: 30%; /* Ajusta el ancho de la tarjeta para que se ajuste a su contenedor */
+    height: auto; /* Permite que la tarjeta se expanda para acomodar su contenido */
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    margin: 20px; /* Añade un margen alrededor de cada tarjeta para darle más espacio */
+  }
+
+  .card-details {
+    color: black;
+    height: 100%;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+  }
+
+  .card-button {
+    transform: translate(-50%, 125%);
+    width: 60%;
+  }
+
+   .text-body {
+    color: rgb(134, 134, 134);
+    font-size: 0.5em;
+   }
+
+   /*Text*/
+   .text-title {
+    font-size: 0.5em;
+    font-weight: bold;
+   }
+
+   /*Hover*/
+   .card:hover {
+    border-color: orangered;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+   }
+
+   .card:hover .card-button {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+   }
+
+   .image-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 30%; /* Hace que la imagen sea circular */
+  }
+
+  .stars {
+    color: gold;
+    font-size: 1em;
+  }
+
+
+  /* Aquí puedes agregar más estilos para pantallas grandes */
+}
+
