@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { Recuperar } from '../Interfaces/recuperar'; // Asegúrate de importar e
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { UsuarioRegistrado } from '../Interfaces/registrado';
+import { ActUsuario } from '../Interfaces/ActUsuario';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,13 @@ export class UsuarioService {
   registrar(request: Registro): Observable<SesionUsuario> {
     console.log('Solicitud de registro:', request);
     return this.http.post<SesionUsuario>(`${this.baseUrl}registro`, request)
+  }
+
+  actualizarUsuario(usuario: ActUsuario): Observable<ActUsuario> {
+    const token = localStorage.getItem('token'); // Obtiene el token del localStorage
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Crea los headers con el token
+
+    return this.http.put<ActUsuario>(`${this.baseUrl}usuarios/${usuario.email}`, usuario, { headers });
   }
 
 

@@ -12,6 +12,8 @@ import { Paseador } from './interfaces/paseador';
 import { Servicio } from './interfaces/servicio';
 import { Horario } from './interfaces/horario';
 import { Precio } from './interfaces/precio';
+import { RankingPerro } from './interfaces/RankingPerro';
+import { CrearOpiPerro } from './interfaces/CrearOpiPerro';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,7 @@ export class CompartidoService {
   baseUrl4: string = enviroment.apiUrl + 'Servicio/';
   baseUrl5: string = enviroment.apiUrl + 'Horario/';
   baseUrl6: string = enviroment.apiUrl + 'Precio/';
+  baseUrl7: string = enviroment.apiUrl + 'Opinion/';
 
 
   constructor(private _snackBar: MatSnackBar,
@@ -52,6 +55,14 @@ export class CompartidoService {
 
   obtenerPrecios(): Observable<Precio[]> {
     return this.http.get<Precio[]>(`${this.baseUrl6}precios`);
+  }
+
+  obtenerOpiniones(): Observable<RankingPerro[]> {
+    return this.http.get<RankingPerro[]>(`${this.baseUrl7}opiniones`);
+  }
+
+  crearOpPerro(opPerro: CrearOpiPerro): Observable<CrearOpiPerro> {
+    return this.http.post<CrearOpiPerro>(`${this.baseUrl7}opiniones/crear`, opPerro);
   }
 
   mostrarAlerta(mensaje: string, tipo: string){

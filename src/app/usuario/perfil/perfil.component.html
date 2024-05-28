@@ -1,1 +1,41 @@
-<p>perfil works!</p>
+<div>
+  <mat-card class="card-container">
+    <h1 style="text-align: center;font-weight: bold; font-size: 2em; color: orangered;">Informacón del Usuario</h1>
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <img [src]="imagenPerfil" style="border-radius: 50%; width: 100px; height: 100px;">
+      <button mat-raised-button (click)="fileInput.click()" style="margin-top: 10px; background-color: orangered; color:whitesmoke">Editar</button>
+      <input hidden type="file" #fileInput (change)="cambiarImagen($event)">
+    </div>
+    <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()" class="form-container" >
+      <ng-container class="form-field">
+        <label style="font-weight: bold;">DNI</label>
+        <input  formControlName="dniUsuario">
+      </ng-container>
+      <ng-container class="form-field">
+        <label style="font-weight: bold;">Nombre</label>
+        <input  formControlName="nombre">
+      </ng-container>
+      <ng-container class="form-field">
+        <label style="font-weight: bold;">Apellido</label>
+        <input  formControlName="apellido">
+      </ng-container>
+      <ng-container class="form-field">
+        <label style="font-weight: bold;">Dirección</label>
+        <input  formControlName="direccion">
+      </ng-container>
+      <ng-container class="form-field">
+        <label style="font-weight: bold;">Email</label>
+        <input  formControlName="email">
+      </ng-container>
+      <ng-container class="form-field">
+        <label style="font-weight: bold;">Contraseña</label>
+        <input  formControlName="password">
+      </ng-container>
+      <ng-container class="form-field">
+        <label style="font-weight: bold;">Teléfono</label>
+        <input  formControlName="telefonoUsuario">
+      </ng-container>
+      <button mat-raised-button type="submit" class="submit-button" style="background-color: orangered; color:whitesmoke">Guardar</button>
+    </form>
+  </mat-card>
+</div>
